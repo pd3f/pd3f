@@ -1,3 +1,5 @@
+import os
+
 import flair
 import redis
 from flair.embeddings import FlairEmbeddings
@@ -7,15 +9,16 @@ from rq import Queue
 # choose some flair language models
 model_names = ["de-forward", "de-backward"]
 
-r = redis.Redis()
-q = Queue(connection=r)
-
 app = Flask(__name__)
 
 if app.debug:
+    r = redis.Redis()
     flair.cache_root = "flair_cache"
 else:
+    r = redis.from_url(os.environ["REDIS_URL"])
     flair.cache_root = "/flair_cache"
+
+q = Queue(connection=r)
 
 
 def get_scores(texts):
