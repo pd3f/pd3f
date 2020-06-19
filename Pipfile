@@ -9,6 +9,8 @@ verify_ssl = true
 flair = "*"
 flask = "*"
 gunicorn = "*"
+rq = "*"
+redis = "*"
 
 [requires]
 python_version = "3.7"
