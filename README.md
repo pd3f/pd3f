@@ -25,4 +25,4 @@ curl --header "Content-Type: application/json" \
 
 ## License
 
-MIT.
+GPlv3.
