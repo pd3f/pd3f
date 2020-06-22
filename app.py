@@ -41,7 +41,7 @@ def flair_score():
 def flair_score_async():
     input_texts = request.get_json()["texts"]
 
-    job = q.enqueue(get_scores, input_texts)
+    job = q.enqueue(get_scores, input_texts, job_timeout=-1)
 
     return jsonify({"id": job.get_id()})
 
