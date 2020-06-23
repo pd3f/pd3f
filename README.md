@@ -16,12 +16,6 @@ Link to persistence storage.
 dokku storage:mount APP /mnt/data/ddd/flair_cache:/flair_cache
 ```
 
-Dokku does not automatically start a worker process, so do it here:
-
-```bash
-dokku ps:scale APP web=1 worker=1
-```
-
 ## Usage
 
 ```bash
