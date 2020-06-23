@@ -3,7 +3,7 @@ import os
 import flair
 import redis
 from flair.embeddings import FlairEmbeddings
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, abort
 from rq import Queue
 
 # choose some flair language models
@@ -22,6 +22,9 @@ q = Queue(connection=r)
 
 
 def get_scores(texts):
+    if not type(texts) is list:
+        return abort(422)
+
     lms = [FlairEmbeddings(x).lm for x in model_names]
 
     results = map(lambda x: sum([lm.calculate_perplexity(x) for lm in lms]), texts)
