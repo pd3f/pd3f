@@ -3,7 +3,8 @@ import os
 import flair
 import redis
 from flair.embeddings import FlairEmbeddings
-from flask import Flask, jsonify, request, abort
+from flask import Flask, abort, jsonify, request
+from flask_caching import Cache
 from rq import Queue
 
 # choose some flair language models
@@ -14,13 +15,19 @@ app = Flask(__name__)
 if app.debug:
     r = redis.Redis()
     flair.cache_root = "flair_cache"
+    app.config["CACHE_TYPE"] = "null"
 else:
     r = redis.from_url(os.environ["REDIS_URL"])
     flair.cache_root = "/flair_cache"
+    app.config["CACHE_TYPE"] = "redis"
+    app.config["CACHE_REDIS_URL"] = os.environ["REDIS_URL"]
+    app.config["CACHE_DEFAULT_TIMEOUT"] = 60 * 60  # one hour
 
 q = Queue(connection=r)
+cache = Cache(app)
 
 
+@cache.memoize()
 def get_scores(texts):
     if not type(texts) is list:
         return abort(422)
