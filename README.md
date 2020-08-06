@@ -1,6 +1,10 @@
-# DDD-flair
+# `pdddf-service`
 
-A Flask micro-service to calculate the [perplexity](https://en.wikipedia.org/wiki/Perplexity#Perplexity_per_word) of texts, using [flair](https://github.com/flairNLP/flair)'s language models.
+Flask Micro Service + GUI for pdddf
+
+
+```docker-compose up --scale worker=2
+```
 
 # Development
 
@@ -27,4 +31,4 @@ curl --header "Content-Type: application/json" \
 
 ## License
 
-GPlv3.
+GPLv3

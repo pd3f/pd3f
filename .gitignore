@@ -128,4 +128,8 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-flair_cache
+
+.vscode
+
+pdddf-cache
+pdddf-uploads

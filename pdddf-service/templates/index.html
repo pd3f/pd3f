@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+        />
+        <meta http-equiv="X-UA-Compatible" content="chrome=1, IE=edge" />
+        <title>pdddf</title>
+        <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css" />
+        <script defer src="/static/bootstrap/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+        <div class="container">
+            <h1>upload file to extract data</h1>
+            <p>choose config to get started</p>
+            <form
+                method="POST"
+                enctype="multipart/form-data"
+                action="{{ url_for('index_post') }}"
+            >
+                <div class="form-group">
+                    <label for="formControlPdf">choose PDF</label>
+                    <input
+                        type="file"
+                        class="form-control-file"
+                        id="formControlPdf"
+                        name="pdf"
+                    />
+                </div>
+                <div class="form-group">
+                    <label for="selectLang">choose language</label>
+                    <select class="form-control" id="selectLang" name="lang">
+                        <option value="multi-v0-fast">multi (fast)</option>
+                        <option>multi</option>
+                        <option>de</option>
+                        <option>en</option>
+                        <option>es</option>
+                    </select>
+                </div>
+                <div class="form-check">
+                    <input
+                        class="form-check-input"
+                        type="checkbox"
+                        value="1"
+                        id="checkTable"
+                        name="tables"
+                    />
+                    <label class="form-check-label" for="checkTable">
+                        extract tables
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input
+                        class="form-check-input"
+                        type="checkbox"
+                        value="1"
+                        id="checkExperimental"
+                        name="experimental"
+                    />
+                    <label class="form-check-label" for="checkExperimental">
+                        experimental mode
+                    </label>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </body>
+</html>

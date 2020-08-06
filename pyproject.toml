@@ -1,0 +1,28 @@
+[tool.poetry]
+name = "pdddf-service"
+version = "0.0.0"
+description = "Flask Micro Service + GUI for pdddf"
+license = "GPL-3.0-only"
+authors = ["Johannes Filter <hi@jfilter.de>"]
+readme = "README.md"
+
+
+[tool.poetry.dependencies]
+flask = "^1.1.0"
+gunicorn = "*"
+rq = ">=1.5"
+redis = "*"
+python = "^3.8"
+pdddf = {path = "../pdddf"}
+
+[tool.poetry.dev-dependencies]
+unidecode = "*"
+pytest = "*"
+pylint = "*"
+black = {version = "*", allow-prereleases = true, python = ">=3.6"}
+
+
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"

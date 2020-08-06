@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+        />
+        <meta http-equiv="X-UA-Compatible" content="chrome=1, IE=edge" />
+        <title>{{filename}}</title>
+        <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css" />
+        <script defer src="/static/bootstrap/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+        <div class="container">
+            <h1>result for:</h1>
+            <p>{{filename}}</p>
+            <p>
+                config: lang (model) {{model}}, tables: {{tables}},
+                experimental: {{experimental}}
+            </p>
+
+            <div class="card">
+                <h5 class="card-header">text output</h5>
+                <div class="card-body">
+                    <p id="output"></p>
+                </div>
+            </div>
+
+            <div class="card mt-5">
+                <h5 class="card-header">tables output</h5>
+                <div class="card-body">
+                    <p id="tables"></p>
+                </div>
+            </div>
+
+            <div class="card mt-5">
+                <h5 class="card-header">log output</h5>
+                <div class="card-body">
+                    <p id="log"></p>
+                </div>
+            </div>
+        </div>
+        <script>
+            async function update() {
+                const url = "/update/{{job_id}}";
+                const response = await fetch(url);
+
+                if (response.ok) {
+                    const json = await response.json();
+                    if ("log" in json) {
+                        const logElem = document.getElementById("log");
+                        if (json.log.length == 0)
+                            logElem.innerHTML = "no logs yet";
+                        else
+                            logElem.innerHTML = json.log.replace(/\n/g, "<br>");
+                    }
+
+                    if ("text" in json) {
+                        const outputElem = document.getElementById("output");
+                        outputElem.innerHTML = json.text.replace(/\n/g, "<br>");
+                        clearInterval(window.pdddfInterval);
+                    }
+                } else {
+                    alert("HTTP-Error: " + response.status);
+                }
+            }
+            window.pdddfInterval = setInterval(update, 500);
+        </script>
+    </body>
+</html>
