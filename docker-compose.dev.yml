@@ -1,0 +1,6 @@
+version: "3"
+services:
+    web:
+        environment:
+            - FLASK_ENV=development
+        command: flask run --host 0.0.0.0

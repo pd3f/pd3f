@@ -11,9 +11,7 @@ services:
             - ./pdddf-service/:/app/
             - ./pdddf-uploads/:/uploads/
             - ./pdddf-cache/:/root/.cache/
-        environment:
-            - FLASK_ENV=development
-        command: flask run --host 0.0.0.0
+        command: gunicorn app:app --workers=1 --bind=0.0.0.0:5000
     parsr:
         image: axarev/parsr:V1.1.0
         expose:
