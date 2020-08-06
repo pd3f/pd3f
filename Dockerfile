@@ -17,8 +17,4 @@ COPY ./pdddf-service /app
 
 RUN mkdir /uploads
 
-
-# RUN nohup bash -c "start_worker.sh &" && sleep 6
-
 ENV FLASK_APP=/app/app.py
-# CMD ["flask", "run", "--host", "0.0.0.0"]

@@ -92,9 +92,13 @@ def get_log(job_id):
     if j.is_finished:
         persists_results(j.kwargs["filename"], *j.result)
         return {"log": log, "text": j.result[0], "tables": j.result[1]}
-
     else:
-        return {"position": j.get_position(), "log": log}
+        pos = j.get_position()
+
+        if pos is None:
+            pos = -1
+
+        return {"position": pos, "log": log}
 
 
 @app.route("/files/<filename>", methods=["GET"])

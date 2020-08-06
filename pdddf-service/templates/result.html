@@ -13,12 +13,36 @@
     </head>
     <body>
         <div class="container">
-            <h1>result for:</h1>
-            <p>{{filename}}</p>
-            <p>
-                config: lang (model) {{model}}, tables: {{tables}},
-                experimental: {{experimental}}
-            </p>
+            <table class="table my-5">
+                <thead>
+                    <tr>
+                        <th>job id</th>
+                        <th>{{job_id}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>file</td>
+                        <td>{{filename}}</td>
+                    </tr>
+                    <tr>
+                        <td>model (language)</td>
+                        <td>{{lang}}</td>
+                    </tr>
+                    <tr>
+                        <td>check tables</td>
+                        <td>{{tables}}</td>
+                    </tr>
+                    <tr>
+                        <td>experimental mode</td>
+                        <td>{{experimental}}</td>
+                    </tr>
+                    <tr>
+                        <td>status</td>
+                        <td id="status">waiting...</td>
+                    </tr>
+                </tbody>
+            </table>
 
             <div class="card">
                 <h5 class="card-header">text output</h5>
@@ -48,18 +72,28 @@
 
                 if (response.ok) {
                     const json = await response.json();
+
+                    const statusElem = document.getElementById("status");
                     if ("log" in json) {
                         const logElem = document.getElementById("log");
                         if (json.log.length == 0)
                             logElem.innerHTML = "no logs yet";
                         else
                             logElem.innerHTML = json.log.replace(/\n/g, "<br>");
+                        statusElem.innerHTML = "done";
                     }
 
                     if ("text" in json) {
                         const outputElem = document.getElementById("output");
                         outputElem.innerHTML = json.text.replace(/\n/g, "<br>");
+                        statusElem.innerHTML = "done";
+
                         clearInterval(window.pdddfInterval);
+                    } else {
+                        if (json.position != -1)
+                            statusElem.innerHTML =
+                                "waiting list position: " + json.position;
+                        else statusElem.innerHTML = "running";
                     }
                 } else {
                     alert("HTTP-Error: " + response.status);

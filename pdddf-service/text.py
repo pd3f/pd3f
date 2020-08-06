@@ -1,10 +1,18 @@
 import logging
 
+import flair
+from rq import get_current_job
+
 from pdddf import extract
+
+flair.cache_root = "/root/.cache/flair"
 
 
 def do_the_job(filename, tables, experimental, lang):
-    logging.basicConfig(filename=f"/uploads/{filename}.log", level=logging.INFO)
+    job_id = get_current_job().id
+
+    logging.basicConfig(filename=f"/uploads/{job_id}.log", level=logging.INFO)
+
     text, tables = extract(
         "/uploads/" + filename,
         tables=tables,

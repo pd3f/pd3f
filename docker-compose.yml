@@ -2,21 +2,20 @@ version: "3"
 services:
     web:
         build: .
-        image: pdddf-service-generic
+        image: pdddf-service
         ports:
-            - "5000:5000"
+            - "1616:5000"
         depends_on:
-            - parsr
             - redis
         volumes:
             - ./pdddf-service/:/app/
             - ./pdddf-uploads/:/uploads/
-            - ./pdddf-cache/:/.cache/
+            - ./pdddf-cache/:/root/.cache/
         environment:
             - FLASK_ENV=development
         command: flask run --host 0.0.0.0
     parsr:
-        image: axarev/parsr:v1.0.0
+        image: axarev/parsr:V1.1.0
         expose:
             - 3001
     redis:
@@ -24,12 +23,12 @@ services:
         expose:
             - 6379
     worker:
-        image: pdddf-service-generic
+        image: pdddf-service
         depends_on:
             - parsr
             - redis
         volumes:
             - ./pdddf-service/:/app/
             - ./pdddf-uploads/:/uploads/
-            - ./pdddf-cache/:/.cache/
-        command: rq worker -u redis://redis:6379 --results-ttl 500
+            - ./pdddf-cache/:/root/.cache/
+        command: rq worker -u redis://redis:6379 --results-ttl 6000
