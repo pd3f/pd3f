@@ -44,6 +44,8 @@
                 </tbody>
             </table>
 
+            <div class="mb-5" id="downloads"></div>
+
             <div class="card">
                 <h5 class="card-header">text output</h5>
                 <div class="card-body">
@@ -87,6 +89,35 @@
                         const outputElem = document.getElementById("output");
                         outputElem.innerHTML = json.text.replace(/\n/g, "<br>");
                         statusElem.innerHTML = "done";
+
+                        buttons =
+                            '<a class="btn btn-primary mr-5" href="/files/{{job_id}}{{filename}}.txt" role="button">download text</a>';
+
+                        if ("tables" in json) {
+                            if (json.tables.length > 1) {
+                                buttons +=
+                                    '<a class="btn btn-primary" href="/files/{{job_id}}{{filename}}_tables.zip" role="button">download tables (zip)</a>';
+
+                                const tablesElem = document.getElementById(
+                                    "tables"
+                                );
+
+                                let tablesStr = "";
+                                json.tables.forEach((x, i) => {
+                                    tablesStr +=
+                                        "table #" +
+                                        i +
+                                        "<br><br>" +
+                                        x +
+                                        "<br><br>";
+                                });
+                                tablesElem.innerHTML = tablesStr;
+                            }
+                        }
+                        const downloadsElem = document.getElementById(
+                            "downloads"
+                        );
+                        downloadsElem.innerHTML = buttons;
 
                         clearInterval(window.pdddfInterval);
                     } else {

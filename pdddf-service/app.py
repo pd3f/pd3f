@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+from zipfile import ZipFile
 
 import redis
 from flask import (
@@ -73,11 +74,20 @@ def index_post():
 
 def persists_results(filename, text, tables):
     Path(app.config["UPLOAD_FOLDER"] + "/" + filename + ".txt").write_text(text)
-    if tables is not None:
-        for i, t in enumerate(tables):
-            Path(
-                app.config["UPLOAD_FOLDER"] + "/" + filename + f"_table_{i}.csv"
-            ).write_text(t)
+
+    with ZipFile(
+        app.config["UPLOAD_FOLDER"] + "/" + filename + "_tables.zip", "w"
+    ) as zipObj2:
+        if tables is not None:
+            for i, t in enumerate(tables):
+
+                Path(
+                    app.config["UPLOAD_FOLDER"] + "/" + filename + f"_table_{i}.csv"
+                ).write_text(t)
+
+                zipObj2.write(
+                    app.config["UPLOAD_FOLDER"] + "/" + filename + f"_table_{i}.csv"
+                )
 
 
 @app.route("/update/<job_id>", methods=["GET"])
@@ -90,7 +100,7 @@ def get_log(job_id):
     log = Path(app.config["UPLOAD_FOLDER"] + "/" + job_id + ".log").read_text()
 
     if j.is_finished:
-        persists_results(j.kwargs["filename"], *j.result)
+        persists_results(job_id + j.kwargs["filename"], *j.result)
         return {"log": log, "text": j.result[0], "tables": j.result[1]}
     else:
         pos = j.get_position()
