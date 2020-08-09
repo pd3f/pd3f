@@ -9,10 +9,33 @@
         <meta http-equiv="X-UA-Compatible" content="chrome=1, IE=edge" />
         <title>{{job_id}}</title>
         <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css" />
-        <script defer src="/static/bootstrap/js/bootstrap.min.js"></script>
     </head>
     <body>
         <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" href="/">PDDDF</a>
+                <button
+                    class="navbar-toggler"
+                    type="button"
+                    data-toggle="collapse"
+                    data-target="#navbarNavAltMarkup"
+                    aria-controls="navbarNavAltMarkup"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
+                >
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav">
+                        <a class="nav-link" href="/">Upload PDF </a>
+                        <a class="nav-link" href="//ddd.jetzt">Background</a>
+                        <a class="nav-link active" href="/result/{{job_id}}"
+                            >{{job_id}}
+                            <span class="sr-only">(current)</span></a
+                        >
+                    </div>
+                </div>
+            </nav>
             <table class="table my-5">
                 <thead>
                     <tr>
@@ -128,6 +151,7 @@
                         if ("failed" in json) {
                             statusElem.innerHTML =
                                 '<span class="badge badge-danger">an error occured</span>';
+                            clearInterval(window.pdddfInterval);
                         } else {
                             if (json.position != -1)
                                 statusElem.innerHTML =
