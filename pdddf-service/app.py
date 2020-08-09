@@ -161,7 +161,7 @@ def result(job_id):
 
 
 def params_to_lang_model(lang, fast_mode):
-    """
+    """Maps params to model names for Flair and tesseract.
     https://github.com/flairNLP/flair/blob/master/resources/docs/embeddings/FLAIR_EMBEDDINGS.md
     multi-v0-fast: English, German, French, Italian, Dutch, Polish
     """
@@ -202,7 +202,7 @@ def do_ocr_via_folder(filenamname, lang):
     shutil.copy2(fn_p, new_p)
 
     while True:
-        # file get's deleted when processing finished
+        # file gets deleted when processing is finished
         if not new_p.is_file():
             if finished_p_success.is_file():
                 # success
