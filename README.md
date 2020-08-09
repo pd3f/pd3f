@@ -29,13 +29,44 @@ docker-compose up
 
 This will download the Docker images and will take a while. After it's finished access the Web-based GUI at <http://localhost:1616>.
 
-After uploading a PDF you will get redirect to a web page.
+After uploading a PDF you will get redirected to a web page displaying progress / results of the job.
 
 ## Usage: API
 
 ```python
+import time
 
+import requests
+
+files = {'pdf': ('test.pdf', open('/dir/test.pdf', 'rb'))}
+response = requests.post('http://localhost:1616', files=files, data={'lang': 'de'})
+id = response.json()['id']
+
+while True:
+    r = requests.get(f"http://localhost:1616/update/{id}")
+    j = r.json()
+    if 'text' in j:
+        break
+    print('waiting...')
+    time.sleep(1)
+print(j['text'])
 ```
+
+Post params:
+ - `lang`: set the language
+ - `fast`: whether to check for tables (default: False)
+ - `tables`: whether to check for tables (default: False)
+ - `experimental`: whether to extract text in experimental mode (default: False)
+ - `check_ocr`: whether to check first if all pages were OCRd (default: True)
+
+You have to poll for `/update/<uuid>` to keep progress. The responding JSON tells you about the status of the request.
+
+Fields:
+ - `log`: always present, text output from the job.
+ - `text` and `tables` and `filename`: only present when the job finished successfully
+ - `position`: present if on waiting list, returns position as integer
+ - `running`: present if job is running
+ - `failed`: present if job has failed
 
 ### Scaling
 
@@ -54,7 +85,7 @@ command: gunicorn app:app --workers=5 --bind=0.0.0.0:5000
 
 ### House Keeping
 
-You will see tghree folders:
+You will see three folders:
 
 - `pdddf-data-uploads`: input & output files
 - `pdddf-data-cache`: storing data so you don't have to download model files over and over again

@@ -70,6 +70,7 @@ def index_post():
     tables = bool(request.form.get("tables", False))
     fast_mode = bool(request.form.get("fast", False))
     check_ocr = bool(request.form.get("check_ocr", True))  # not in UI / expert mode
+    in_browser = bool(request.form.get("in_browser", False))
 
     flair_lang, tess_lang = params_to_lang_model(lang, fast_mode)
 
@@ -82,7 +83,7 @@ def index_post():
     fn = os.path.join(app.config["UPLOAD_FOLDER"], filename)
     file.save(fn)
 
-    job = q.enqueue(
+    q.enqueue(
         do_the_job,
         filename=filename,
         lang=lang,
@@ -94,9 +95,12 @@ def index_post():
         job_id=job_id,
     )
 
-    Path(app.config["UPLOAD_FOLDER"] + "/" + job.id + ".log").write_text("")
+    Path(app.config["UPLOAD_FOLDER"] + "/" + job_id + ".log").write_text("")
 
-    return redirect(url_for("result", job_id=job.id))
+    # simpler than checking for accept header
+    if in_browser:
+        return redirect(url_for("result", job_id=job_id))
+    return {"id": job_id}
 
 
 def persists_results(filename, text, tables):
@@ -129,16 +133,21 @@ def get_log(job_id):
     if j.is_finished:
         persists_results(j.kwargs["filename"], *j.result)
 
-        return {"log": log, "text": j.result[0], "tables": j.result[1]}
+        return {
+            "log": log,
+            "text": j.result[0],
+            "tables": j.result[1],
+            "filename": j.kwargs["filename"],
+        }
     elif j.is_failed:
         return {"log": log, "failed": True}
     else:
         pos = j.get_position()
 
         if pos is None:
-            pos = -1
+            return {"log": log, "running": True}
 
-        return {"position": pos, "log": log}
+        return {"log": log, "position": pos }
 
 
 @app.route("/files/<filename>", methods=["GET"])
