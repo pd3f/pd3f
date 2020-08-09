@@ -13,6 +13,7 @@ gunicorn = "*"
 rq = ">=1.5"
 redis = "*"
 python = "^3.8"
+shortuuid = "^1.0.0"
 pdddf = {path = "../pdddf"}
 
 [tool.poetry.dev-dependencies]

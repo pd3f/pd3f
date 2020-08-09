@@ -32,12 +32,24 @@
                 <div class="form-group">
                     <label for="selectLang">choose language</label>
                     <select class="form-control" id="selectLang" name="lang">
-                        <option value="multi-v0-fast">multi (fast)</option>
-                        <option>multi</option>
                         <option>de</option>
                         <option>en</option>
                         <option>es</option>
+                        <option>fr</option>
                     </select>
+                </div>
+                <div class="form-check">
+                    <input
+                        class="form-check-input"
+                        type="checkbox"
+                        value="1"
+                        id="checkFast"
+                        name="fast"
+                        checked
+                    />
+                    <label class="form-check-label" for="checkFast">
+                        fast (but less accurate)
+                    </label>
                 </div>
                 <div class="form-check">
                     <input

@@ -7,7 +7,7 @@
             content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
         />
         <meta http-equiv="X-UA-Compatible" content="chrome=1, IE=edge" />
-        <title>{{filename}}</title>
+        <title>{{job_id}}</title>
         <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css" />
         <script defer src="/static/bootstrap/js/bootstrap.min.js"></script>
     </head>
@@ -23,10 +23,10 @@
                 <tbody>
                     <tr>
                         <td>file</td>
-                        <td>{{filename}}</td>
+                        <td>{{filename[22:]}}</td>
                     </tr>
                     <tr>
-                        <td>model (language)</td>
+                        <td>language</td>
                         <td>{{lang}}</td>
                     </tr>
                     <tr>
@@ -39,7 +39,11 @@
                     </tr>
                     <tr>
                         <td>status</td>
-                        <td id="status">waiting...</td>
+                        <td id="status">
+                            <span class="badge badge-secondary"
+                                >waiting...</span
+                            >
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -82,21 +86,21 @@
                             logElem.innerHTML = "no logs yet";
                         else
                             logElem.innerHTML = json.log.replace(/\n/g, "<br>");
-                        statusElem.innerHTML = "done";
                     }
 
                     if ("text" in json) {
                         const outputElem = document.getElementById("output");
                         outputElem.innerHTML = json.text.replace(/\n/g, "<br>");
-                        statusElem.innerHTML = "done";
+                        statusElem.innerHTML =
+                            '<span class="badge badge-success">done</span>';
 
                         buttons =
-                            '<a class="btn btn-primary mr-5" href="/files/{{job_id}}{{filename}}.txt" role="button">download text</a>';
+                            '<a class="btn btn-primary mr-5" href="/files/{{filename}}" role="button">download pdf</a> <a class="btn btn-primary mr-5" href="/files/{{filename}}.txt" role="button">download text</a>';
 
                         if ("tables" in json) {
                             if (json.tables.length > 1) {
                                 buttons +=
-                                    '<a class="btn btn-primary" href="/files/{{job_id}}{{filename}}_tables.zip" role="button">download tables (zip)</a>';
+                                    '<a class="btn btn-primary" href="/files/{{filename}}_tables.zip" role="button">download tables (zip)</a>';
 
                                 const tablesElem = document.getElementById(
                                     "tables"
@@ -121,10 +125,19 @@
 
                         clearInterval(window.pdddfInterval);
                     } else {
-                        if (json.position != -1)
+                        if ("failed" in json) {
                             statusElem.innerHTML =
-                                "waiting list position: " + json.position;
-                        else statusElem.innerHTML = "running";
+                                '<span class="badge badge-danger">an error occured</span>';
+                        } else {
+                            if (json.position != -1)
+                                statusElem.innerHTML =
+                                    '<span class="badge badge-secondary">"waiting list position: ' +
+                                    json.position +
+                                    "Secondary</span>";
+                            else
+                                statusElem.innerHTML =
+                                    '<span class="badge badge-info">running</span>';
+                        }
                     }
                 } else {
                     alert("HTTP-Error: " + response.status);

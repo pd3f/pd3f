@@ -3,6 +3,7 @@ from pathlib import Path
 from zipfile import ZipFile
 
 import redis
+import shortuuid
 from flask import (
     Flask,
     abort,
@@ -15,7 +16,7 @@ from flask import (
 from rq import Queue
 from werkzeug.utils import secure_filename
 
-from text import do_the_job
+from text import do_the_job, params_to_lang_model
 
 app = Flask(__name__)
 
@@ -52,19 +53,37 @@ def index_post():
         abort(400)
 
     lang = request.form.get("lang")
+
+    # limit do some languages for now
+    if not lang in ("de", "es", "en", "fr"):
+        abort(400)
+
     experimental = bool(request.form.get("experimental", False))
     tables = bool(request.form.get("tables", False))
+    fast_mode = bool(request.form.get("fast", False))
+    check_ocr = bool(request.form.get("check_ocr", True))  # not in UI / expert mode
 
-    filename = secure_filename(file.filename)
-    file.save(os.path.join(app.config["UPLOAD_FOLDER"], filename))
+    flair_lang, tess_lang = params_to_lang_model(lang, fast_mode)
+
+    if not check_ocr:
+        tess_lang = None
+
+    job_id = shortuuid.ShortUUID().random(length=22)
+    filename = job_id + secure_filename(file.filename)[:200]
+
+    fn = os.path.join(app.config["UPLOAD_FOLDER"], filename)
+    file.save(fn)
 
     job = q.enqueue(
         do_the_job,
         filename=filename,
         lang=lang,
+        flair_lang=flair_lang,
+        tess_lang=tess_lang,
         tables=tables,
         experimental=experimental,
         job_timeout=-1,
+        job_id=job_id,
     )
 
     Path(app.config["UPLOAD_FOLDER"] + "/" + job.id + ".log").write_text("")
@@ -100,8 +119,10 @@ def get_log(job_id):
     log = Path(app.config["UPLOAD_FOLDER"] + "/" + job_id + ".log").read_text()
 
     if j.is_finished:
-        persists_results(job_id + j.kwargs["filename"], *j.result)
+        persists_results(j.kwargs["filename"], *j.result)
         return {"log": log, "text": j.result[0], "tables": j.result[1]}
+    elif j.is_failed:
+        return {"log": log, "failed": True}
     else:
         pos = j.get_position()
 
@@ -113,7 +134,10 @@ def get_log(job_id):
 
 @app.route("/files/<filename>", methods=["GET"])
 def dl_file(filename):
-    return send_from_directory(app.config["UPLOAD_FOLDER"], filename)
+    # TODO: add nginx redirect
+    return send_from_directory(
+        app.config["UPLOAD_FOLDER"], filename, as_attachment=True
+    )
 
 
 @app.route("/result/<job_id>/", methods=["GET"])

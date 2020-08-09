@@ -1,32 +1,37 @@
 version: "3"
 services:
     web:
-        build: .
         image: pdddf-service
         ports:
             - "1616:5000"
         depends_on:
             - redis
         volumes:
-            - ./pdddf-service/:/app/
-            - ./pdddf-uploads/:/uploads/
-            - ./pdddf-cache/:/root/.cache/
+            - ./pdddf-data-uploads/:/uploads/
         command: gunicorn app:app --workers=1 --bind=0.0.0.0:5000
+
     parsr:
         image: axarev/parsr:V1.1.0
         expose:
             - 3001
+
     redis:
         image: redis:6-alpine
         expose:
             - 6379
+
     worker:
         image: pdddf-service
         depends_on:
             - parsr
             - redis
         volumes:
-            - ./pdddf-service/:/app/
-            - ./pdddf-uploads/:/uploads/
-            - ./pdddf-cache/:/root/.cache/
+            - ./pdddf-data-uploads/:/uploads/
+            - ./pdddf-data-to-ocr/:/to-ocr/
+            - ./pdddf-data-cache/:/root/.cache/
         command: rq worker -u redis://redis:6379 --results-ttl 6000
+
+    ocr_worker:
+        image: jfilter/pdddf-ocr:latest
+        volumes:
+            - ./pdddf-data-to-ocr/:/to-ocr/
