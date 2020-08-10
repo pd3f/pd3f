@@ -3,7 +3,7 @@ FROM python:3.8-slim
 RUN apt-get update && apt-get upgrade -y
 RUN pip install poetry
 
-COPY ./poetry.lock ./pyproject.toml ./pdddf-service /app/
+COPY ./poetry.lock ./pyproject.toml ./pd3f /app/
 
 RUN mkdir /uploads
 

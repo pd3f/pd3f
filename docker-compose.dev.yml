@@ -6,12 +6,12 @@ services:
             - FLASK_ENV=development
         command: flask run --host 0.0.0.0
         volumes:
-            - ./pdddf-service/:/app/
-            - ./pdddf-data-uploads/:/uploads/
+            - ./pd3f/:/app/
+            - ./pd3f-data-uploads/:/uploads/
 
     worker:
         volumes:
-            - ./pdddf-service/:/app/
-            - ./pdddf-data-uploads/:/uploads/
-            - ./pdddf-data-to-ocr/:/to-ocr/
-            - ./pdddf-data-cache/:/root/.cache/
+            - ./pd3f/:/app/
+            - ./pd3f-data-uploads/:/uploads/
+            - ./pd3f-data-to-ocr/:/to-ocr/
+            - ./pd3f-data-cache/:/root/.cache/

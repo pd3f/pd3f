@@ -1,13 +1,13 @@
 version: "3"
 services:
     web:
-        image: jfilter/pdddf-service:latest
+        image: pd3f/pd3f:latest
         ports:
             - "1616:5000"
         depends_on:
             - redis
         volumes:
-            - ./pdddf-data-uploads/:/uploads/
+            - ./pd3f-data-uploads/:/uploads/
         command: gunicorn app:app --workers=1 --bind=0.0.0.0:5000
 
     parsr:
@@ -21,14 +21,14 @@ services:
             - 6379
 
     worker:
-        image: jfilter/pdddf-service:latest
+        image: pd3f/pd3f:latest
         depends_on:
             - parsr
             - redis
         volumes:
-            - ./pdddf-data-uploads/:/uploads/
-            - ./pdddf-data-to-ocr/:/to-ocr/
-            - ./pdddf-data-cache/:/root/.cache/
+            - ./pd3f-data-uploads/:/uploads/
+            - ./pd3f-data-to-ocr/:/to-ocr/
+            - ./pd3f-data-cache/:/root/.cache/
 
         # delete results / files after one day
         environment:
@@ -36,6 +36,6 @@ services:
         command: rq worker -u redis://redis:6379 --results-ttl 86400
 
     ocr_worker:
-        image: jfilter/pdddf-ocr:latest
+        image: pd3f/pd3f-ocr:latest
         volumes:
-            - ./pdddf-data-to-ocr/:/to-ocr/
+            - ./pd3f-data-to-ocr/:/to-ocr/

@@ -13,7 +13,7 @@
     <body>
         <div class="container">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <a class="navbar-brand" href="/">PDDDF</a>
+                <a class="navbar-brand" href="/">pd3f</a>
                 <button
                     class="navbar-toggler"
                     type="button"
@@ -28,7 +28,7 @@
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div class="navbar-nav">
                         <a class="nav-link" href="/">Upload PDF </a>
-                        <a class="nav-link" href="//ddd.jetzt">Background</a>
+                        <a class="nav-link" href="//pd3f.com">Background</a>
                         <a class="nav-link active" href="/result/{{job_id}}"
                             >{{job_id}}
                             <span class="sr-only">(current)</span></a
@@ -146,12 +146,12 @@
                         );
                         downloadsElem.innerHTML = buttons;
 
-                        clearInterval(window.pdddfInterval);
+                        clearInterval(window.pd3fInterval);
                     } else {
                         if ("failed" in json) {
                             statusElem.innerHTML =
                                 '<span class="badge badge-danger">an error occured</span>';
-                            clearInterval(window.pdddfInterval);
+                            clearInterval(window.pd3fInterval);
                         } else {
                             if ("position" in json)
                                 statusElem.innerHTML =
@@ -167,7 +167,7 @@
                     alert("HTTP-Error: " + response.status);
                 }
             }
-            window.pdddfInterval = setInterval(update, 500);
+            window.pd3fInterval = setInterval(update, 500);
         </script>
     </body>
 </html>
