@@ -1,3 +1,5 @@
+![](imgs/flow.jpg)
+
 # `pd3f`
 
 *Experimental, use with care.*
@@ -13,6 +15,7 @@ The underlying Python package [pdddf](https://github.com/jfilter/pdddf) tries to
 `pd3f` includes a Web-based GUI and a [Flask](https://flask.palletsprojects.com/)-based micro service (API).
 
 You can find a demo at [demo.pd3f.com](https://demo.pd3f.com).
+
 
 ## Installation
 
