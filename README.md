@@ -207,3 +207,5 @@ If you have a **question**, found a **bug** or want to propose a new **feature**
 ## License
 
 GPLv3
+
+![](imgs/logo.jpg)
