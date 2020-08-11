@@ -1,6 +1,6 @@
 ![](imgs/flow.jpg)
 
-# `pd3f`
+# `pd3f` – Beyond PDF
 
 *Experimental, use with care.*
 
@@ -21,7 +21,11 @@ You can find a demo at [demo.pd3f.com](https://demo.pd3f.com).
 
 You need to setup [Docker](https://docs.docker.com/get-docker/).
 
-You need the `docker-compose.yml` file of this repository. You can download it separately or just `git clone https://github.com/pd3f/pd3f`.
+You need the `docker-compose.yml` file of this repository. You can download it separately or just fetch the whole repository.
+
+```
+git clone https://github.com/pd3f/pd3f
+```
 
 You need to have ~4 GB of space to store all the software / data to run this.
 
@@ -106,7 +110,33 @@ Run this command from time to time to schedule jobs in order to delete files in 
 docker-compose run --rm worker rqscheduler --host redis --burst
 ```
 
+## FAQ
+
+### Parsr can also do OCR, why do use OCRmyPDF?
+
+OCRmyPDF uses various image preprocessing to improve the image quality.
+This improves the output of Tesseract.
+Parsr uses raw Tesseract so the results are worse.
+
+### Parsr can also extract text, why is your tool needed?
+
+The text output of Parsr is scrambled, i.e. hyphens are not removed.
+`pd3f` improves the overall text quality by reconstructing the original text with language models.
+See [pdddf](https://github.com/pd3f/pdddf) for details.
+
+Overall Parsr is a great tool, but it still has rough edges.
+`pd3f` improves the output with various (opinionated) hand-crafted rules.
+`pd3f` mainly focuses on formal letters and official documents for now.
+Based on this assumption we can simplify certain things.
+It was developed mainly for German documents but it should work for other languages as well.
+
 ## Future Work / TODO
+
+PDFs are hard to process and it's hard to extract information.
+So the results of this tool may not satisfy you.
+There will be more work to improve this software but alltogether, it's unlikely that it will run an all documents anytime.
+
+Here some things that will get improved.
 
 ### statics about how long processing (per page) took in the past
 
