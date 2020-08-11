@@ -4,18 +4,26 @@
 
 *Experimental, use with care.*
 
-`pd3f` is a self-hosted Docker-based PDF **text extraction** pipeline for German, English and other languages.
-It tries to **reconstruct** the **original text** with the help of machine learning.
+`pd3f` is a self-hosted Docker-based PDF **text extraction** pipeline.
+It tries to **reconstruct** the **original text** with the help of **machine learning**.
 
-`pd3f` can OCR scanned PDFs with [ocrmypdf](https://github.com/jbarlow83/OCRmyPDF) (tesseract) and extracts tables with [camelot](https://github.com/camelot-dev/camelot) and [tabula](https://github.com/tabulapdf/tabula).
-It's build upon [parsr](https://github.com/axa-group/Parsr) to split the text on pages into words / lines / paragraphs.
+`pd3f` can OCR scanned PDFs with [OCRmyPDF](https://github.com/jbarlow83/OCRmyPDF) (Tesseract) and extracts tables with [Camelot](https://github.com/camelot-dev/camelot) and [Tabula](https://github.com/tabulapdf/tabula).
+It's build upon the output of [Parsr](https://github.com/axa-group/Parsr),
+Parsr detects hierarchies of text and splits the text into words / lines / paragraphs.
 
-The underlying Python package [pdddf](https://github.com/jfilter/pdddf) tries to reconstruct the original text of PDFs by removing hyphens, new lines and/or space. It uses [languages models](https://machinelearningmastery.com/statistical-language-modeling-and-neural-language-models/) to guess how the original text looked like.
+Even though Parsr brings some structure to the PDF, the text is still scrambled, i.e., due to hyphens.
+The underlying Python package [pdddf](https://github.com/jfilter/pdddf) tries to reconstruct the original text by removing hyphens, new lines and / or space.
+It uses [languages models](https://machinelearningmastery.com/statistical-language-modeling-and-neural-language-models/) to guess how the original text looked like.
 
 `pd3f` includes a Web-based GUI and a [Flask](https://flask.palletsprojects.com/)-based micro service (API).
-
 You can find a demo at [demo.pd3f.com](https://demo.pd3f.com).
 
+It was developed for German letters and offical documents.
+It should work for other languages as well.
+Besides German `pd3f` supports English, Spanish and French for now.
+More languages will be added a later stage.
+
+A more systematic evaluation of `pd3f` will follow in September 2020.
 
 ## Installation
 
@@ -23,14 +31,14 @@ You need to setup [Docker](https://docs.docker.com/get-docker/).
 
 You need the `docker-compose.yml` file of this repository. You can download it separately or just fetch the whole repository.
 
-```
+```bash
 git clone https://github.com/pd3f/pd3f
 ```
 
 You need to have ~4 GB of space to store all the software / data to run this.
 
 
-## Usage: GUI
+## Using the GUI
 
 You need the `docker-compose.yml` and then run
 
@@ -42,7 +50,7 @@ This will download the Docker images and will take a while. After it's finished 
 
 After uploading a PDF you will get redirected to a web page displaying progress / results of the job.
 
-## Usage: API
+## Using the API
 
 ```python
 import time
@@ -64,11 +72,11 @@ print(j['text'])
 ```
 
 Post params:
- - `lang`: set the language
+ - `lang`: set the language (options: 'de', 'en', 'es', 'fr')
  - `fast`: whether to check for tables (default: False)
  - `tables`: whether to check for tables (default: False)
  - `experimental`: whether to extract text in experimental mode (default: False)
- - `check_ocr`: whether to check first if all pages were OCRd (default: True)
+ - `check_ocr`: whether to check first if all pages were OCRd (default: True, cannot be modified in GUI)
 
 You have to poll for `/update/<uuid>` to keep progress. The responding JSON tells you about the status of the request.
 
@@ -134,7 +142,7 @@ It was developed mainly for German documents but it should work for other langua
 
 PDFs are hard to process and it's hard to extract information.
 So the results of this tool may not satisfy you.
-There will be more work to improve this software but alltogether, it's unlikely that it will run an all documents anytime.
+There will be more work to improve this software but altogether, it's unlikely that it will successfully extract all the information anytime soon.
 
 Here some things that will get improved.
 
@@ -175,6 +183,26 @@ Here some things that will get improved.
 ## Related Work
 
 - [a list of PDF processing tools in my blog post](https://johannesfilter.com/python-and-pdf-a-review-of-existing-tools/)
+
+## Development
+
+Install and use [poetry](https://python-poetry.org/).
+
+Initially run:
+
+```bash
+./dev.sh --build
+```
+
+Omit `--build` if the Docker images do not need to get build.
+Right now Docker + poetry is not able to cache the installs so building the image all the time is uncool.
+
+## Contributing
+
+If you have a **question**, found a **bug** or want to propose a new **feature**, have a look at the [issues page](https://github.com/pd3f/pd3f/issues).
+
+**Pull requests** are especially welcomed when they fix bugs or improve the code quality.
+
 
 ## License
 
