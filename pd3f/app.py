@@ -22,7 +22,7 @@ from rq import Queue, get_current_job
 from rq_scheduler import Scheduler
 from werkzeug.utils import secure_filename
 
-from pdddf import extract
+from pd3f import extract
 
 
 flair.cache_root = "/root/.cache/flair"

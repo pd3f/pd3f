@@ -33,6 +33,11 @@
                             >{{job_id}}
                             <span class="sr-only">(current)</span></a
                         >
+                        <small class="navbar-text">
+                            Feel free to bookmark or share
+                            <a href="/result/{{job_id}}">the current page</a>.
+                            The link is unique and not listed.</small
+                        >
                     </div>
                 </div>
             </nav>
@@ -118,7 +123,7 @@
                             '<span class="badge badge-success">done</span>';
 
                         buttons =
-                            '<a class="btn btn-primary mr-5" href="/files/{{filename}}" role="button">download pdf</a> <a class="btn btn-primary mr-5" href="/files/{{filename}}.txt" role="button">download text</a>';
+                            '<a class="btn btn-primary mr-5" href="/files/{{filename}}" role="button">download OCRd pdf</a> <a class="btn btn-primary mr-5" href="/files/{{filename}}.txt" role="button">download text</a>';
 
                         if ("tables" in json) {
                             if (json.tables.length > 1) {

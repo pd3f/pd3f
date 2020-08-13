@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "pdddf-service"
+name = "pd3f-service"
 version = "0.0.0"
 description = "Flask Micro Service + GUI for pdddf"
 license = "GPL-3.0-only"
@@ -15,7 +15,7 @@ rq-scheduler = "*"
 redis = "*"
 python = "^3.8"
 shortuuid = "^1.0.0"
-pdddf = {path = "../pdddf"}
+pd3f = {path = "../pd3f-core"}
 
 [tool.poetry.dev-dependencies]
 unidecode = "*"

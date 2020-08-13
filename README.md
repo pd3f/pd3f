@@ -1,27 +1,27 @@
 ![](imgs/flow.jpg)
 
-# `pd3f` – Beyond PDF
+# `pd3f` – PDF Text Extractor
 
 *Experimental, use with care.*
 
-`pd3f` is a self-hosted Docker-based PDF **text extraction** pipeline.
-It tries to **reconstruct** the **original text** with the help of **machine learning**.
+`pd3f` is a PDF **text extraction** pipeline that is self-hosted, local-first and Docker-based.
+It **reconstructs** the original **continuous text** with the help of **machine learning**.
 
 `pd3f` can OCR scanned PDFs with [OCRmyPDF](https://github.com/jbarlow83/OCRmyPDF) (Tesseract) and extracts tables with [Camelot](https://github.com/camelot-dev/camelot) and [Tabula](https://github.com/tabulapdf/tabula).
-It's build upon the output of [Parsr](https://github.com/axa-group/Parsr),
+It's build upon the output of [Parsr](https://github.com/axa-group/Parsr).
 Parsr detects hierarchies of text and splits the text into words / lines / paragraphs.
 
 Even though Parsr brings some structure to the PDF, the text is still scrambled, i.e., due to hyphens.
-The underlying Python package [pdddf](https://github.com/jfilter/pdddf) tries to reconstruct the original text by removing hyphens, new lines and / or space.
+The underlying Python package [`pd3f-core`](https://github.com/pd3f/pd3f-core) tries to reconstruct the original continuous text by removing hyphens, new lines and / or space.
 It uses [languages models](https://machinelearningmastery.com/statistical-language-modeling-and-neural-language-models/) to guess how the original text looked like.
+
+`pd3f` is especially useful for languages with longs words such as German.
+(It was mainly developed for German letters and official documents.)
+Besides German `pd3f` supports English, Spanish and French.
+More languages will be added a later stage.
 
 `pd3f` includes a Web-based GUI and a [Flask](https://flask.palletsprojects.com/)-based micro service (API).
 You can find a demo at [demo.pd3f.com](https://demo.pd3f.com).
-
-It was developed for German letters and offical documents.
-It should work for other languages as well.
-Besides German `pd3f` supports English, Spanish and French for now.
-More languages will be added a later stage.
 
 A more systematic evaluation of `pd3f` will follow in September 2020.
 
@@ -75,7 +75,7 @@ Post params:
  - `lang`: set the language (options: 'de', 'en', 'es', 'fr')
  - `fast`: whether to check for tables (default: False)
  - `tables`: whether to check for tables (default: False)
- - `experimental`: whether to extract text in experimental mode (default: False)
+ - `experimental`: whether to extract text in experimental mode (footnotes to endnotes, depuplicate page header / footer) (default: False)
  - `check_ocr`: whether to check first if all pages were OCRd (default: True, cannot be modified in GUI)
 
 You have to poll for `/update/<uuid>` to keep progress. The responding JSON tells you about the status of the request.
@@ -90,7 +90,6 @@ Fields:
 ### Scaling
 
 You can also run more worker with this:
-
 
 ```bash
 docker-compose up --scale worker=3

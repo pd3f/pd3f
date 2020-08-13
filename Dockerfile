@@ -8,7 +8,7 @@ COPY ./poetry.lock ./pyproject.toml ./pd3f /app/
 RUN mkdir /uploads
 
 # temp fix until pdddf is released
-COPY ./pdddf /pdddf
+COPY ./pd3f-core /pd3f-core
 
 WORKDIR /app
 RUN poetry config virtualenvs.create false
