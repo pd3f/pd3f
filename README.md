@@ -35,7 +35,9 @@ You need the `docker-compose.yml` file of this repository. You can download it s
 git clone https://github.com/pd3f/pd3f
 ```
 
-You need to have ~4 GB of space to store all the software / data to run this.
+You need to have ~8 GB of space to store all the software / data to run this.
+
+The first the server starts it will download the models for the machine learning part.
 
 
 ## Using the GUI
@@ -116,6 +118,24 @@ Run this command from time to time to schedule jobs in order to delete files in 
 ```bash
 docker-compose run --rm worker rqscheduler --host redis --burst
 ```
+
+## Running behind nginx
+
+An example config for nginx:
+
+```
+server_name demo.pd3f.com;
+client_max_body_size 100M;
+
+location /files/ {
+        alias /home/user/pd3f-data-uploads/;
+}
+
+location / {
+        proxy_pass http://127.0.0.1:1616;
+```
+
+Make sure set to set the correct permission to let nginx serve the static files.
 
 ## FAQ
 
