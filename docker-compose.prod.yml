@@ -1,0 +1,22 @@
+version: "3"
+services:
+    web:
+        environment:
+            - DEMO=1
+            - MAX_UPLOAD=50 MB
+            - POLL_INTERVAL=2000
+            # - SENTRY_URL=https://xx
+
+        command: gunicorn app:app --workers=5 --bind=0.0.0.0:5000
+
+    rq_monitor:
+        image: pd3f/rq-dashboard-3.8
+        depends_on:
+            - redis
+        environment:
+            - RQ_DASHBOARD_REDIS_URL=redis://redis:6379
+        ports:
+            - "9181:9181"
+
+    worker:
+        scale: 2

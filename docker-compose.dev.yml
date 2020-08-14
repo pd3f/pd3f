@@ -6,6 +6,7 @@ services:
             - FLASK_ENV=development
             - DEMO=1
             - MAX_UPLOAD=50 MB
+
         command: flask run --host 0.0.0.0
         volumes:
             - ./pd3f/:/app/
