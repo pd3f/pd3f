@@ -53,7 +53,9 @@ def index_get():
     max_upload = None
     if "MAX_UPLOAD" in os.environ:
         max_upload = os.environ["MAX_UPLOAD"]
-    return render_template("index.html", demo=demo, max_upload=max_upload, num_jobs=q.count)
+    return render_template(
+        "index.html", demo=demo, max_upload=max_upload, num_jobs=q.count
+    )
 
 
 @app.route("/", methods=["POST"])
@@ -176,7 +178,14 @@ def result(job_id):
     j = q.fetch_job(job_id)
     if j is None:
         abort(400)
-    return render_template("result.html", job_id=job_id, **j.kwargs)
+
+    poll_interval = (
+        os.environ["POLL_INTERVAL"] if "POLL_INTERVAL" in os.environ else 500
+    )
+
+    return render_template(
+        "result.html", job_id=job_id, **j.kwargs, poll_interval=poll_interval
+    )
 
 
 ### The actual work happens here

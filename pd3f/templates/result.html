@@ -148,7 +148,7 @@
                         spinnerElem.innerHTML = "";
 
                         buttons =
-                            '<a class="btn btn-primary mr-5" href="/files/{{filename}}" role="button">download OCRd pdf</a> <a class="btn btn-primary mr-5" href="/files/{{filename}}.txt" role="button">download text</a> <button type="button" id="copyext" class="btn btn-primary">copy text</button>';
+                            '<a class="btn btn-primary mr-5" href="/files/{{filename}}" role="button">download OCRd pdf</a> <a class="btn btn-primary mr-5" href="/files/{{filename}}.txt" role="button">download text</a> <button type="button" id="copyext" class="btn btn-secondary">copy text</button>';
 
                         if ("tables" in json) {
                             if (json.tables.length > 1) {
@@ -203,7 +203,7 @@
                     alert("HTTP-Error: " + response.status);
                 }
             }
-            window.pd3fInterval = setInterval(update, 500);
+            window.pd3fInterval = setInterval(update, {{poll_interval}});
         </script>
     </body>
 </html>
