@@ -17,6 +17,5 @@ services:
             - RQ_DASHBOARD_REDIS_URL=redis://redis:6379
         ports:
             - "9181:9181"
-
-    worker:
-        scale: 2
+        entrypoint:
+            ["python3", "-m", "rq_dashboard", "--url-prefix", "/dashboard"]

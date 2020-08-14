@@ -1,6 +1,6 @@
 ![](imgs/flow.jpg)
 
-# `pd3f` – PDF Text Extractor
+# `pd3f` – PDF Text Extractor to go beyond PDF
 
 *Experimental, use with care.*
 
@@ -124,18 +124,52 @@ docker-compose run --rm worker rqscheduler --host redis --burst
 An example config for nginx:
 
 ```
-server_name demo.pd3f.com;
-client_max_body_size 100M;
+limit_req_zone $binary_remote_addr zone=limitfiles:10m rate=1r/s;
+proxy_cache_path /var/nginx/cache keys_zone=pd3fcache:1m inactive=1m max_size=10M;
 
-location /files/ {
-        alias /home/user/pd3f-data-uploads/;
-}
+server {
+    server_name demo.pd3f.com;
+    client_max_body_size 50M;
 
-location / {
+    if ($request_method !~ ^(GET|HEAD|POST)$ )
+    {
+        return 405;
+    }
+
+    location /files/ {
+        limit_req zone=limitfiles burst=10 nodelay;
+        alias /var/pd3f/pd3f-data-uploads/;
+        add_header Content-disposition "attachment";
+    }
+
+    location /update/ {
         proxy_pass http://127.0.0.1:1616;
+    }
+
+    location / {
+        proxy_cache pd3fcache;
+        expires 10m;
+        add_header Cache-Control "public";
+
+        proxy_pass http://127.0.0.1:1616;
+    }
+
+    location /dashboard/ {
+        allow xx.xx.xx.xx;
+        deny all;
+
+        auth_basic "Private Area";
+        auth_basic_user_file /path/to/.htpasswd;
+
+        proxy_pass http://127.0.0.1:9181;
+}
 ```
 
 Make sure set to set the correct permission to let nginx serve the static files.
+
+```
+docker-compose -f docker-compose.yml -f docker-compose.prod.yml up --scale worker=2
+```
 
 ## FAQ
 
