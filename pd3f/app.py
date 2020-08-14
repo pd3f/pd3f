@@ -27,6 +27,14 @@ from pd3f import extract
 
 flair.cache_root = "/root/.cache/flair"
 
+
+if "SENTRY_URL" in os.environ:
+    import sentry_sdk
+    from sentry_sdk.integrations.flask import FlaskIntegration
+
+    sentry_sdk.init(dsn=os.environ["SENTRY_URL"], integrations=[FlaskIntegration()])
+
+
 app = Flask(__name__)
 app.config["UPLOAD_FOLDER"] = "/uploads"
 
@@ -41,7 +49,11 @@ def allow_pdf(filename):
 
 @app.route("/", methods=["GET"])
 def index_get():
-    return render_template("index.html")
+    demo = "DEMO" in os.environ and os.environ.get("DEMO") == "1"
+    max_upload = None
+    if "MAX_UPLOAD" in os.environ:
+        max_upload = os.environ["MAX_UPLOAD"]
+    return render_template("index.html", demo=demo, max_upload=max_upload, num_jobs=q.count)
 
 
 @app.route("/", methods=["POST"])
@@ -93,7 +105,7 @@ def index_post():
         experimental=experimental,
         job_timeout=-1,
         job_id=job_id,
-        fast_mode=fast_mode
+        fast_mode=fast_mode,
     )
 
     Path(app.config["UPLOAD_FOLDER"] + "/" + job_id + ".log").write_text("")
@@ -148,7 +160,7 @@ def get_log(job_id):
         if pos is None:
             return {"log": log, "running": True}
 
-        return {"log": log, "position": pos }
+        return {"log": log, "position": pos}
 
 
 @app.route("/files/<filename>", methods=["GET"])

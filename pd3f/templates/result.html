@@ -30,8 +30,8 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div class="navbar-nav">
-                        <a class="nav-link" href="/">Upload PDF </a>
-                        <a class="nav-link" href="//pd3f.com">Background</a>
+                        <a class="nav-link" href="/">upload pdf</a>
+                        <a class="nav-link" href="//pd3f.com">information</a>
                         <a class="nav-link active" href="/result/{{job_id}}"
                             >{{job_id}}
                             <span class="sr-only">(current)</span></a
@@ -148,7 +148,7 @@
                         spinnerElem.innerHTML = "";
 
                         buttons =
-                            '<a class="btn btn-primary mr-5" href="/files/{{filename}}" role="button">download OCR-d pdf</a> <a class="btn btn-primary mr-5" href="/files/{{filename}}.txt" role="button">download text</a> <button type="button" id="copyext" class="btn btn-primary">copy text</button>';
+                            '<a class="btn btn-primary mr-5" href="/files/{{filename}}" role="button">download OCRd pdf</a> <a class="btn btn-primary mr-5" href="/files/{{filename}}.txt" role="button">download text</a> <button type="button" id="copyext" class="btn btn-primary">copy text</button>';
 
                         if ("tables" in json) {
                             if (json.tables.length > 1) {

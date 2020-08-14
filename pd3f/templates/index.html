@@ -30,10 +30,10 @@
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div class="navbar-nav">
                         <a class="nav-link active" href="/"
-                            >Upload PDF
+                            >upload pdf
                             <span class="sr-only">(current)</span></a
                         >
-                        <a class="nav-link" href="//pd3f.com">Background</a>
+                        <a class="nav-link" href="//pd3f.com">information</a>
                     </div>
                 </div>
             </nav>
@@ -42,15 +42,27 @@
                 Please set the config for our PDF. You can upload scanned PDFs
                 that will get OCRd or digital PDFs. After uploading your file
                 you will get redirected to another page with a unique URL. The
-                URL is not guessable but you can share it. The results will get
-                deleted automatically after one day. However, this is only demo
-                and still very experimental software. Please host your own
-                instance of pd3f or set it up on your computer.
+                URL is not guessable but you can share it. However, this is very
+                experimental software, use it with care.
             </p>
-
+            {% if demo %}
             <p>
-                s
+                This is only a demo. The results will get deleted automatically
+                after one day. Please host your own instance of pd3f or set it
+                up on your computer.
             </p>
+            {% endif %} {% if max_upload %}
+            <p>
+                You can only upload files up to a size of <b>{{max_upload}}</b>.
+            </p>
+            {% endif %} {% if num_jobs > 1 %}
+            <p>There are currently {{num_jobs}} jobs in the queue.</p>
+            {% else %} {% if num_jobs == 1 %}
+            <p>There are currently {{num_jobs}} jobs in the queue.</p>
+            {% else %}
+            <p>There are currently no jobs in the queue.</p>
+            {% endif %} {% endif %}
+
             <form
                 class="mt-5"
                 method="POST"

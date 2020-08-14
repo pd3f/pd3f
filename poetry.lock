@@ -66,6 +66,14 @@ d = ["aiohttp (>=3.3.2)", "aiohttp-cors"]
 
 [[package]]
 category = "main"
+description = "Fast, simple object-to-object and broadcast signaling"
+name = "blinker"
+optional = false
+python-versions = "*"
+version = "1.4"
+
+[[package]]
+category = "main"
 description = "Amazon Web Services Library"
 name = "boto"
 optional = false
@@ -638,10 +646,10 @@ version = "0.8.0"
 category = "main"
 description = ""
 develop = true
-name = "pdddf"
+name = "pd3f"
 optional = false
 python-versions = "^3.8"
-version = "0.0.0"
+version = "0.1.0"
 
 [package.dependencies]
 dehyphen = "^0.2.0"
@@ -649,7 +657,6 @@ joblib = "*"
 parsr-client = "3.1"
 shapely = "*"
 textdistance = "*"
-tqdm = "*"
 
 [package.dependencies.clean-text]
 extras = ["gpl"]
@@ -658,7 +665,7 @@ version = "*"
 [package.source]
 reference = ""
 type = "directory"
-url = "../pdddf"
+url = "../pd3f-core"
 
 [[package]]
 category = "main"
@@ -893,6 +900,41 @@ name = "sentencepiece"
 optional = false
 python-versions = "*"
 version = "0.1.91"
+
+[[package]]
+category = "main"
+description = "Python client for Sentry (https://sentry.io)"
+name = "sentry-sdk"
+optional = false
+python-versions = "*"
+version = "0.16.2"
+
+[package.dependencies]
+certifi = "*"
+urllib3 = ">=1.10.0"
+
+[package.dependencies.blinker]
+optional = true
+version = ">=1.1"
+
+[package.dependencies.flask]
+optional = true
+version = ">=0.11"
+
+[package.extras]
+aiohttp = ["aiohttp (>=3.5)"]
+beam = ["apache-beam (>=2.12)"]
+bottle = ["bottle (>=0.12.13)"]
+celery = ["celery (>=3)"]
+django = ["django (>=1.8)"]
+falcon = ["falcon (>=1.4)"]
+flask = ["flask (>=0.11)", "blinker (>=1.1)"]
+pure_eval = ["pure-eval", "executing", "asttokens"]
+pyspark = ["pyspark (>=2.4.4)"]
+rq = ["rq (>=0.6)"]
+sanic = ["sanic (>=0.8)"]
+sqlalchemy = ["sqlalchemy (>=1.2)"]
+tornado = ["tornado (>=5)"]
 
 [[package]]
 category = "main"
@@ -1137,7 +1179,7 @@ python-versions = "*"
 version = "1.12.1"
 
 [metadata]
-content-hash = "bcc627c6e2b3a22615281b433629ad490d012cfa03a06cd71ae0bee63baf4002"
+content-hash = "daefc0f3b2fe5ea38aa3fb5bae6bb8872f67b3e0f85a9f24385f7fd7fba4e7b5"
 python-versions = "^3.8"
 
 [metadata.files]
@@ -1160,6 +1202,9 @@ attrs = [
 black = [
     {file = "black-19.10b0-py36-none-any.whl", hash = "sha256:1b30e59be925fafc1ee4565e5e08abef6b03fe455102883820fe5ee2e4734e0b"},
     {file = "black-19.10b0.tar.gz", hash = "sha256:c2edb73a08e9e0e6f65a0e6af18b059b8b1cdd5bef997d7a0b181df93dc81539"},
+]
+blinker = [
+    {file = "blinker-1.4.tar.gz", hash = "sha256:471aee25f3992bd325afa3772f1063dbdbbca947a041b8b89466dc00d606f8b6"},
 ]
 boto = [
     {file = "boto-2.49.0-py2.py3-none-any.whl", hash = "sha256:147758d41ae7240dc989f0039f27da8ca0d53734be0eb869ef16e3adcfa462e8"},
@@ -1521,7 +1566,7 @@ pathspec = [
     {file = "pathspec-0.8.0-py2.py3-none-any.whl", hash = "sha256:7d91249d21749788d07a2d0f94147accd8f845507400749ea19c1ec9054a12b0"},
     {file = "pathspec-0.8.0.tar.gz", hash = "sha256:da45173eb3a6f2a5a487efba21f050af2b41948be6ab52b6a1e3ff22bb8b7061"},
 ]
-pdddf = []
+pd3f = []
 pillow = [
     {file = "Pillow-7.2.0-cp35-cp35m-macosx_10_10_intel.whl", hash = "sha256:1ca594126d3c4def54babee699c055a913efb01e106c309fa6b04405d474d5ae"},
     {file = "Pillow-7.2.0-cp35-cp35m-manylinux1_i686.whl", hash = "sha256:c92302a33138409e8f1ad16731568c55c9053eee71bb05b6b744067e1b62380f"},
@@ -1692,6 +1737,10 @@ sentencepiece = [
     {file = "sentencepiece-0.1.91-cp38-cp38-win32.whl", hash = "sha256:9bdff324279359598a516de8413fd2c62bc3c9c8f569f4431829599fbe57e417"},
     {file = "sentencepiece-0.1.91-cp38-cp38-win_amd64.whl", hash = "sha256:c2a004470d388272d6c17ca160ef73d6ea1ffcddc345771d817ece5c85d85dcb"},
     {file = "sentencepiece-0.1.91.tar.gz", hash = "sha256:f9700cf607ea064d9fad34c751fbf49953dcc56fe68c54b277481aa0aec5c18f"},
+]
+sentry-sdk = [
+    {file = "sentry-sdk-0.16.2.tar.gz", hash = "sha256:38bb09d0277117f76507c8728d9a5156f09a47ac5175bb8072513859d19a593b"},
+    {file = "sentry_sdk-0.16.2-py2.py3-none-any.whl", hash = "sha256:2de15b13836fa3522815a933bd9c887c77f4868071043349f94f1b896c1bcfb8"},
 ]
 shapely = [
     {file = "Shapely-1.7.0-cp27-cp27m-macosx_10_9_x86_64.whl", hash = "sha256:11090bd5b5f11d54e1924a11198226971dab6f392c2e5a3c74514857f764b971"},
