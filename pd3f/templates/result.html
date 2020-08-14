@@ -11,6 +11,7 @@
         <link rel="stylesheet" href="/static/css/bootstrap.min.css" />
         <script defer src="/static/js/jquery-3.5.1.slim.min.js"></script>
         <script defer src="/static/js/bootstrap.bundle.min.js"></script>
+        <script defer src="/static/js/clipboard.min.js"></script>
     </head>
     <body>
         <div class="container">
@@ -95,7 +96,11 @@
             <div class="card">
                 <h5 class="card-header">text output</h5>
                 <div class="card-body">
-                    <p id="output"></p>
+                    <textarea
+                        id="output"
+                        rows="20"
+                        style="width: 100%;"
+                    ></textarea>
                 </div>
             </div>
 
@@ -132,7 +137,8 @@
 
                     if ("text" in json) {
                         const outputElem = document.getElementById("output");
-                        outputElem.innerHTML = json.text.replace(/\n/g, "<br>");
+                        // outputElem.innerHTML = json.text.replace(/\n/g, "<br>");
+                        outputElem.innerHTML = json.text;
                         statusElem.innerHTML =
                             '<span class="badge badge-success">done</span>';
 
@@ -142,7 +148,7 @@
                         spinnerElem.innerHTML = "";
 
                         buttons =
-                            '<a class="btn btn-primary mr-5" href="/files/{{filename}}" role="button">download OCR-d pdf</a> <a class="btn btn-primary mr-5" href="/files/{{filename}}.txt" role="button">download text</a>';
+                            '<a class="btn btn-primary mr-5" href="/files/{{filename}}" role="button">download OCR-d pdf</a> <a class="btn btn-primary mr-5" href="/files/{{filename}}.txt" role="button">download text</a> <button type="button" id="copyext" class="btn btn-primary">copy text</button>';
 
                         if ("tables" in json) {
                             if (json.tables.length > 1) {
@@ -169,6 +175,12 @@
                             "downloads"
                         );
                         downloadsElem.innerHTML = buttons;
+
+                        new ClipboardJS("#copyext", {
+                            target: function (trigger) {
+                                return outputElem;
+                            },
+                        });
 
                         clearInterval(window.pd3fInterval);
                     } else {
