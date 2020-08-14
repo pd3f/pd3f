@@ -93,6 +93,7 @@ def index_post():
         experimental=experimental,
         job_timeout=-1,
         job_id=job_id,
+        fast_mode=fast_mode
     )
 
     Path(app.config["UPLOAD_FOLDER"] + "/" + job_id + ".log").write_text("")
@@ -227,7 +228,9 @@ def do_ocr_via_folder(filenamname, lang):
         time.sleep(1)
 
 
-def do_the_job(filename, tables, experimental, flair_lang, tess_lang, lang):
+def do_the_job(filename, tables, experimental, flair_lang, tess_lang, **kwargs):
+    """ kwargs to persist input config
+    """
     job = get_current_job()
     job_id = job.id
 

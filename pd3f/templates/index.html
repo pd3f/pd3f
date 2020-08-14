@@ -8,7 +8,9 @@
         />
         <meta http-equiv="X-UA-Compatible" content="chrome=1, IE=edge" />
         <title>pd3f</title>
-        <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="/static/css/bootstrap.min.css" />
+        <script defer src="/static/js/jquery-3.5.1.slim.min.js"></script>
+        <script defer src="/static/js/bootstrap.bundle.min.js"></script>
     </head>
     <body>
         <div class="container">
@@ -35,15 +37,28 @@
                     </div>
                 </div>
             </nav>
-            <h1 class="mt-5">upload pdf to extract text</h1>
-            <p>set config</p>
+            <h1 class="my-5">upload pdf to extract text</h1>
+            <p>
+                Please set the config for our PDF. You can upload scanned PDFs
+                that will get OCRd or digital PDFs. After uploading your file
+                you will get redirected to another page with a unique URL. The
+                URL is not guessable but you can share it. The results will get
+                deleted automatically after one day. However, this is only demo
+                and still very experimental software. Please host your own
+                instance of pd3f or set it up on your computer.
+            </p>
+
+            <p>
+                s
+            </p>
             <form
+                class="mt-5"
                 method="POST"
                 enctype="multipart/form-data"
                 action="{{ url_for('index_post') }}"
             >
                 <div class="form-group">
-                    <label for="formControlPdf">choose PDF</label>
+                    <label for="formControlPdf">choose pdf</label>
                     <input
                         type="file"
                         class="form-control-file"
@@ -96,12 +111,12 @@
                     />
                     <label class="form-check-label" for="checkExperimental">
                         deduplicate page header/footer & transform footnotes to
-                        endnotes (experimental mode)
+                        endnotes (experimental)
                     </label>
                 </div>
                 <input type="hidden" name="in_browser" value="1" />
                 <button type="submit" class="btn btn-primary mt-3">
-                    Submit
+                    submit
                 </button>
             </form>
         </div>

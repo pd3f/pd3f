@@ -8,7 +8,9 @@
         />
         <meta http-equiv="X-UA-Compatible" content="chrome=1, IE=edge" />
         <title>{{job_id}}</title>
-        <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="/static/css/bootstrap.min.css" />
+        <script defer src="/static/js/jquery-3.5.1.slim.min.js"></script>
+        <script defer src="/static/js/bootstrap.bundle.min.js"></script>
     </head>
     <body>
         <div class="container">
@@ -34,13 +36,21 @@
                             <span class="sr-only">(current)</span></a
                         >
                         <small class="navbar-text">
-                            Feel free to bookmark or share
+                            Share or bookmark
                             <a href="/result/{{job_id}}">the current page</a>.
-                            The link is unique and not listed.</small
-                        >
+                        </small>
                     </div>
                 </div>
             </nav>
+            <div
+                id="loadingspinner"
+                class="d-flex justify-content-center mt-5"
+                style="height: 2rem;"
+            >
+                <div class="spinner-border" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
             <table class="table my-5">
                 <thead>
                     <tr>
@@ -50,6 +60,14 @@
                 </thead>
                 <tbody>
                     <tr>
+                        <td>status</td>
+                        <td id="status">
+                            <span class="badge badge-secondary"
+                                >waiting...</span
+                            >
+                        </td>
+                    </tr>
+                    <tr>
                         <td>file</td>
                         <td>{{filename[22:]}}</td>
                     </tr>
@@ -58,20 +76,16 @@
                         <td>{{lang}}</td>
                     </tr>
                     <tr>
-                        <td>check tables</td>
+                        <td>fast mode</td>
+                        <td>{{fast_mode}}</td>
+                    </tr>
+                    <tr>
+                        <td>extract tables</td>
                         <td>{{tables}}</td>
                     </tr>
                     <tr>
                         <td>experimental mode</td>
                         <td>{{experimental}}</td>
-                    </tr>
-                    <tr>
-                        <td>status</td>
-                        <td id="status">
-                            <span class="badge badge-secondary"
-                                >waiting...</span
-                            >
-                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -122,8 +136,13 @@
                         statusElem.innerHTML =
                             '<span class="badge badge-success">done</span>';
 
+                        const spinnerElem = document.getElementById(
+                            "loadingspinner"
+                        );
+                        spinnerElem.innerHTML = "";
+
                         buttons =
-                            '<a class="btn btn-primary mr-5" href="/files/{{filename}}" role="button">download OCRd pdf</a> <a class="btn btn-primary mr-5" href="/files/{{filename}}.txt" role="button">download text</a>';
+                            '<a class="btn btn-primary mr-5" href="/files/{{filename}}" role="button">download OCR-d pdf</a> <a class="btn btn-primary mr-5" href="/files/{{filename}}.txt" role="button">download text</a>';
 
                         if ("tables" in json) {
                             if (json.tables.length > 1) {
@@ -155,7 +174,7 @@
                     } else {
                         if ("failed" in json) {
                             statusElem.innerHTML =
-                                '<span class="badge badge-danger">an error occured</span>';
+                                '<span class="badge badge-danger">an error occurred</span>';
                             clearInterval(window.pd3fInterval);
                         } else {
                             if ("position" in json)
