@@ -1,6 +1,8 @@
 ![](imgs/flow.jpg)
 
-# `pd3f` – PDF Text Extractor to go beyond PDF
+# `pd3f` – PDF Text Extractor
+
+> Beyond PDF
 
 *Experimental, use with care.*
 
@@ -16,7 +18,7 @@ The underlying Python package [`pd3f-core`](https://github.com/pd3f/pd3f-core) t
 It uses [languages models](https://machinelearningmastery.com/statistical-language-modeling-and-neural-language-models/) to guess how the original text looked like.
 
 `pd3f` is especially useful for languages with longs words such as German.
-(It was mainly developed for German letters and official documents.)
+It was mainly developed to parse German letters and official documents.
 Besides German `pd3f` supports English, Spanish and French.
 More languages will be added a later stage.
 
@@ -29,26 +31,26 @@ A more systematic evaluation of `pd3f` will follow in September 2020.
 
 You need to setup [Docker](https://docs.docker.com/get-docker/).
 
-You need the `docker-compose.yml` file of this repository. You can download it separately or just fetch the whole repository.
+You need the `docker-compose.yml` file of this repository. You can download it separately or just fetch the whole repository:
 
 ```bash
 git clone https://github.com/pd3f/pd3f
 ```
 
-You need to have ~8 GB of space to store all the software / data to run this.
-
-The first the server starts it will download the models for the machine learning part.
-
-
-## Using the GUI
-
-You need the `docker-compose.yml` and then run
+Then go to the folder of this repository and run:
 
 ```bash
 docker-compose up
 ```
 
-This will download the Docker images and will take a while. After it's finished access the Web-based GUI at <http://localhost:1616>.
+The first time the `pd3f` starts it will download the Docker images.
+You need to have ~8 GB of space to store all the software / data to run this.
+
+
+## Using the GUI
+
+The first time you upload a PDF, `pd3f` will download some large languages models.
+After it's finished access the Web-based GUI at <http://localhost:1616>.
 
 After uploading a PDF you will get redirected to a web page displaying progress / results of the job.
 
@@ -80,7 +82,7 @@ Post params:
  - `experimental`: whether to extract text in experimental mode (footnotes to endnotes, depuplicate page header / footer) (default: False)
  - `check_ocr`: whether to check first if all pages were OCRd (default: True, cannot be modified in GUI)
 
-You have to poll for `/update/<uuid>` to keep progress. The responding JSON tells you about the status of the request.
+You have to poll for `/update/<uuid>` to keep up with the progress. The responding JSON tells you about the status of the processing job.
 
 Fields:
  - `log`: always present, text output from the job.
@@ -103,6 +105,12 @@ To increase the frontend threads, change this line in `docker-compose.yml`:
 command: gunicorn app:app --workers=5 --bind=0.0.0.0:5000
 ```
 
+You may as well create a new `docker-compose.yml` to override certain settings. Take a look at [`docker-compose.prod.yml`](./docker-compose.prod.yml)
+
+```bash
+docker-compose -f docker-compose.yml -f docker-compose.prod.yml up --scale worker=2
+```
+
 ### House Keeping
 
 You will see three folders:
@@ -117,58 +125,6 @@ Run this command from time to time to schedule jobs in order to delete files in 
 
 ```bash
 docker-compose run --rm worker rqscheduler --host redis --burst
-```
-
-## Running behind nginx
-
-An example config for nginx:
-
-```
-limit_req_zone $binary_remote_addr zone=limitfiles:10m rate=1r/s;
-proxy_cache_path /var/nginx/cache keys_zone=pd3fcache:1m inactive=1m max_size=10M;
-
-server {
-    server_name demo.pd3f.com;
-    client_max_body_size 50M;
-
-    if ($request_method !~ ^(GET|HEAD|POST)$ )
-    {
-        return 405;
-    }
-
-    location /files/ {
-        limit_req zone=limitfiles burst=10 nodelay;
-        alias /var/pd3f/pd3f-data-uploads/;
-        add_header Content-disposition "attachment";
-    }
-
-    location /update/ {
-        proxy_pass http://127.0.0.1:1616;
-    }
-
-    location / {
-        proxy_cache pd3fcache;
-        expires 10m;
-        add_header Cache-Control "public";
-
-        proxy_pass http://127.0.0.1:1616;
-    }
-
-    location /dashboard/ {
-        allow xx.xx.xx.xx;
-        deny all;
-
-        auth_basic "Private Area";
-        auth_basic_user_file /path/to/.htpasswd;
-
-        proxy_pass http://127.0.0.1:9181;
-}
-```
-
-Make sure set to set the correct permission to let nginx serve the static files.
-
-```
-docker-compose -f docker-compose.yml -f docker-compose.prod.yml up --scale worker=2
 ```
 
 ## FAQ
@@ -190,6 +146,58 @@ Overall Parsr is a great tool, but it still has rough edges.
 `pd3f` mainly focuses on formal letters and official documents for now.
 Based on this assumption we can simplify certain things.
 It was developed mainly for German documents but it should work for other languages as well.
+
+## Running `pd3f` in Production with Nginx
+
+An example config for Nginx to run in conjunction with [`docker-compose.prod.yml`](./docker-compose.prod.yml):
+
+```
+limit_req_zone $binary_remote_addr zone=limitfiles:10m rate=1r/s;
+proxy_cache_path /var/nginx/cache keys_zone=pd3fcache:1m inactive=1m max_size=10M;
+
+server {
+    server_name demo.pd3f.com;
+    client_max_body_size 50M;
+
+    if ($request_method !~ ^(GET|HEAD|POST)$ )
+    {
+        return 405;
+    }
+
+    # prevent guessing of file names
+    location /files/ {
+        limit_req zone=limitfiles burst=10 nodelay;
+        alias /var/pd3f/pd3f-data-uploads/;
+        add_header Content-disposition "attachment";
+    }
+
+    location /update/ {
+        proxy_pass http://127.0.0.1:1616;
+    }
+
+    # simple caching
+    location / {
+        proxy_cache pd3fcache;
+        expires 10m;
+        add_header Cache-Control "public";
+
+        proxy_pass http://127.0.0.1:1616;
+    }
+
+    # restrict access to a IP / Subnet + protect with Basic Auth
+    location /dashboard/ {
+        allow xx.xx.xx.xx;
+        deny all;
+
+        auth_basic "Private Area";
+        auth_basic_user_file /path/to/.htpasswd;
+
+        proxy_pass http://127.0.0.1:9181;
+}
+```
+
+Make sure set to set the correct permission to let Nginx serve the static files (in `/var/pd3f/pd3f-data-uploads/`).
+
 
 ## Future Work / TODO
 
@@ -217,7 +225,7 @@ Here some things that will get improved.
 - what to do if there is no fast model?
 
 
-### client
+### Python client
 
 - simple client based on request
 - send whole folders
@@ -226,16 +234,16 @@ Here some things that will get improved.
 
 - go beyond text
 
-### Use pdf-scripts
+### use pdf-scripts / allow more processing
 
 - reduce size
 - repair PDF
 - detect if scanned
-
+- force to OCR again
 
 ## Related Work
 
-- [a list of PDF processing tools in my blog post](https://johannesfilter.com/python-and-pdf-a-review-of-existing-tools/)
+I compiled a list of PDF processing tools in [my blog post](https://johannesfilter.com/python-and-pdf-a-review-of-existing-tools/).
 
 ## Development
 
