@@ -166,7 +166,7 @@ server {
 
     # prevent guessing of file names
     location /files/ {
-        limit_req zone=limitfiles burst=10 nodelay;
+        limit_req zone=limitfiles burst=2 nodelay;
         alias /var/pd3f/pd3f-data-uploads/;
         add_header Content-disposition "attachment";
     }
