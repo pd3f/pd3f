@@ -241,6 +241,11 @@ Here some things that will get improved.
 - detect if scanned
 - force to OCR again
 
+### improve logs / get better feedback
+
+- show uncertainty of ML model
+- allow different log levels
+
 ## Related Work
 
 I compiled a list of PDF processing tools in [my blog post](https://johannesfilter.com/python-and-pdf-a-review-of-existing-tools/).
