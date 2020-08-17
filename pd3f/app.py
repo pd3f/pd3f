@@ -49,12 +49,20 @@ def allow_pdf(filename):
 
 @app.route("/", methods=["GET"])
 def index_get():
-    demo = "DEMO" in os.environ and os.environ.get("DEMO") == "1"
+    demo = "DEMO" in os.environ and os.environ["DEMO"] == "1"
+    priv_urls = None
+    if "PRIVACY_URLS" in os.environ:
+        priv_urls = os.environ["PRIVACY_URLS"].split()
+
     max_upload = None
     if "MAX_UPLOAD" in os.environ:
         max_upload = os.environ["MAX_UPLOAD"]
     return render_template(
-        "index.html", demo=demo, max_upload=max_upload, num_jobs=q.count
+        "index.html",
+        demo=demo,
+        max_upload=max_upload,
+        num_jobs=q.count,
+        priv_urls=priv_urls,
     )
 
 
