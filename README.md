@@ -139,7 +139,7 @@ Parsr uses raw Tesseract so the results are worse.
 
 The text output of Parsr is scrambled, i.e. hyphens are not removed.
 `pd3f` improves the overall text quality by reconstructing the original text with language models.
-See [pdddf](https://github.com/pd3f/pdddf) for details.
+See [pd3f-core](https://github.com/pd3f/pd3f-core) for details.
 
 Overall Parsr is a great tool, but it still has rough edges.
 `pd3f` improves the output with various (opinionated) hand-crafted rules.
