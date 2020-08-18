@@ -2,7 +2,7 @@
 name = "pd3f-service"
 version = "0.0.0"
 description = "Flask Micro Service + Web-based GUI for pd3f-core"
-license = "GPL-3.0-only"
+license = "AGPL-3.0-only"
 authors = ["Johannes Filter <hi@jfilter.de>"]
 repository = "https://github.com/pd3f/pd3f"
 readme = "README.md"

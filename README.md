@@ -272,6 +272,6 @@ If you have a **question**, found a **bug** or want to propose a new **feature**
 
 ## License
 
-GPLv3
+Affero General Public License 3.0
 
 ![](imgs/logo.jpg)
