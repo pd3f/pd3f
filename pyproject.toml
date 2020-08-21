@@ -16,7 +16,7 @@ rq-scheduler = "*"
 redis = "*"
 python = "^3.8"
 shortuuid = "^1.0.0"
-pd3f = "^0.2.0"
+pd3f = "^0.3.0"
 sentry-sdk = {version = "0.16.2", extras = ["flask"]}
 
 [tool.poetry.dev-dependencies]
