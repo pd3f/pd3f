@@ -151,7 +151,7 @@ It was developed mainly for German documents but it should work for other langua
 
 An example config for Nginx to run in conjunction with [`docker-compose.prod.yml`](./docker-compose.prod.yml):
 
-```
+```nginx
 limit_req_zone $binary_remote_addr zone=limitfiles:10m rate=1r/s;
 proxy_cache_path /var/nginx/cache keys_zone=pd3fcache:1m inactive=1m max_size=10M;
 
