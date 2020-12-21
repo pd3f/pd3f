@@ -84,8 +84,8 @@ def index_post():
 
     lang = request.form.get("lang")
 
-    # limit do some languages for now
-    if not lang in ("de", "es", "en", "fr"):
+    # limit to some languages for now
+    if not lang in ("de", "es", "en", "fr", "it"):
         abort(400)
 
     experimental = bool(request.form.get("experimental", False))
@@ -207,11 +207,12 @@ def params_to_lang_model(lang, fast_mode):
 
     flair_lang = lang
     if fast_mode:
-        # for en and es fast exits
-        flair_lang += "-fast"
-    if lang in ("de", "fr") and fast_mode:
-        # no fast for model for de / fr
-        flair_lang = "multi-v0-fast"
+        if lang in ("de", "fr", "it"):
+            # no fast for model for de / fr / it
+            flair_lang = "multi-v0-fast"
+        else:
+            # for en and es fast exits
+            flair_lang += "-fast"
 
     tesseract_lang = None
 
@@ -223,16 +224,18 @@ def params_to_lang_model(lang, fast_mode):
         tesseract_lang = "spa"
     elif lang == "fr":
         tesseract_lang = "fra"
+    elif lang == "it":
+        tesseract_lang = "ita"
 
     return flair_lang, tesseract_lang
 
 
-def do_ocr_via_folder(filenamname, lang):
+def do_ocr_via_folder(filename, lang):
     """This is blocking the worker, but who cares. The OCR will take all CPUs anyhow.
     """
 
     logging.info("setting up ocr")
-    fn_p = Path("/uploads/" + filenamname)
+    fn_p = Path("/uploads/" + filename)
     new_p = Path("/to-ocr/" + fn_p.stem + f".{lang}" + fn_p.suffix)
     finished_p_success = new_p.with_suffix(".pdf.done")
     finished_p_error = new_p.with_suffix(".pdf.failed")
@@ -298,4 +301,3 @@ def clear_in_future(job_id):
         delete_all_files_for_job,
         job_id,
     )
-
