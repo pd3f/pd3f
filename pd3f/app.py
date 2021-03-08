@@ -9,21 +9,12 @@ from zipfile import ZipFile
 import flair
 import redis
 import shortuuid
-from flask import (
-    Flask,
-    abort,
-    redirect,
-    render_template,
-    request,
-    send_from_directory,
-    url_for,
-)
+from flask import Flask, abort, redirect, render_template, request, send_from_directory, url_for
 from rq import Queue, get_current_job
 from rq_scheduler import Scheduler
 from werkzeug.utils import secure_filename
 
 from pd3f import extract
-
 
 flair.cache_root = "/root/.cache/flair"
 
@@ -52,6 +43,8 @@ scheduler = Scheduler(connection=r)
 def allow_pdf(filename):
     return "." in filename and filename.rsplit(".", 1)[1].lower() in "pdf"
 
+
+# Views
 
 @app.route("/", methods=["GET"])
 def index_get():
@@ -202,15 +195,15 @@ def result(job_id):
     )
 
 
-### The actual work happens here
+# worker tasks
 
 
 def params_to_lang_model(lang, fast_mode):
-    """Maps params to model names for Flair and tesseract.
+    """
+    Maps params to model names for Flair and tesseract.
     https://github.com/flairNLP/flair/blob/master/resources/docs/embeddings/FLAIR_EMBEDDINGS.md
     multi-v0-fast: English, German, French, Italian, Dutch, Polish
     """
-
     flair_lang = lang
     if fast_mode:
         # for en and es fast exits
@@ -234,9 +227,9 @@ def params_to_lang_model(lang, fast_mode):
 
 
 def do_ocr_via_folder(filenamname, lang):
-    """This is blocking the worker, but who cares. The OCR will take all CPUs anyhow.
     """
-
+    This is blocking the worker, but who cares. The OCR will take all CPUs anyhow.
+    """
     logging.info("setting up ocr")
     fn_p = Path("/uploads/" + filenamname)
     new_p = Path("/to-ocr/" + fn_p.stem + f".{lang}" + fn_p.suffix)
@@ -264,7 +257,8 @@ def do_ocr_via_folder(filenamname, lang):
 
 
 def do_the_job(filename, tables, experimental, flair_lang, tess_lang, **kwargs):
-    """ kwargs to persist input config
+    """
+    kwargs to persist input config
     """
     job = get_current_job()
     job_id = job.id
@@ -299,11 +293,15 @@ def delete_all_files_for_job(job_id):
 
 
 def clear_in_future(job_id):
+    """
+    Delete successfull tasks in some time, e.g., 24 hours.
+    """
     scheduler.enqueue_in(
         timedelta(hours=int(os.environ["KEEP_RESULTS_HOURS"])),
         delete_all_files_for_job,
         job_id,
     )
+
 
 @app.cli.command()
 def retry_failed():
