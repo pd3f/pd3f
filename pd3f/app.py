@@ -299,3 +299,24 @@ def clear_in_future(job_id):
         job_id,
     )
 
+@app.cli.command()
+def retry_failed():
+    registry = q.failed_job_registry
+
+    # This is how to get jobs from FailedJobRegistry
+    for job_id in registry.get_job_ids():
+        registry.requeue(job_id)  # Puts job back in its original queue
+
+    assert len(registry) == 0  # Registry will be empty when job is requeued
+
+@app.cli.command()
+def delete_failed():
+    registry = q.failed_job_registry
+
+    for job_id in registry.get_job_ids():
+        # delete all files
+        delete_all_files_for_job(job_id)
+        # delete job
+        registry.remove(job_id)
+
+    assert len(registry) == 0  # Registry will be empty when all are deleted
