@@ -27,6 +27,12 @@ from pd3f import extract
 
 flair.cache_root = "/root/.cache/flair"
 
+JOB_TIMEOUT = os.environ.get("JOB_TIMEOUT")
+if JOB_TIMEOUT is None:
+    # to disable timeout: set to -1
+    JOB_TIMEOUT = -1
+else:
+    JOB_TIMEOUT = int(JOB_TIMEOUT)
 
 if "SENTRY_URL" in os.environ:
     import sentry_sdk
@@ -113,7 +119,7 @@ def index_post():
         tess_lang=tess_lang,
         tables=tables,
         experimental=experimental,
-        job_timeout=-1,
+        job_timeout=JOB_TIMEOUT,
         job_id=job_id,
         fast_mode=fast_mode,
     )

@@ -6,6 +6,8 @@ services:
             - MAX_UPLOAD=50 MB
             - POLL_INTERVAL=2000
             - WEB_CONCURRENCY=1
+            # timeout: 1 day
+            - JOB_TIMEOUT=86400
             # - SENTRY_URL=https://xx
             # - PRIVACY_URLS=https://example.com https://example.de
 
