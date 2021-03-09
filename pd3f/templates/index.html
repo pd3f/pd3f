@@ -49,11 +49,7 @@
             <p>
                 This is only a demo. The results will get deleted automatically
                 after one day. Please host your own instance of pd3f or set it
-                up on your computer. {% if priv_urls %}
-                <a href="{{priv_urls[0]}}">Privacy Policy</a> {% if
-                priv_urls|length > 1 %} /
-                <a href="{{priv_urls[1]}}">Datenschutzerklärung</a>
-                {% endif %} {% endif %}
+                up on your computer.
             </p>
 
             {% endif %} {% if max_upload %}
@@ -137,6 +133,17 @@
                     submit
                 </button>
             </form>
+            <hr>
+            <div>
+                <small>
+                {% if priv_urls %}
+                <a href="{{priv_urls[0]}}">Privacy Policy</a> {% if
+                priv_urls|length > 1 %} /
+                <a href="{{priv_urls[1]}}">Datenschutzerklärung</a> /
+                {% endif %}
+                {% endif %}
+                 <a href='//github.com/pd3f'>GitHub</a></small>
+            </div>
         </div>
     </body>
 </html>
