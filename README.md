@@ -78,7 +78,9 @@ Here some things that will get improved.
 
 ## Related Work
 
-I compiled a list of PDF processing tools in [my blog post](https://johannesfilter.com/python-and-pdf-a-review-of-existing-tools/).
+- https://github.com/axa-group/Parsr
+- https://github.com/jzillmann/pdf-to-markdown
+- some PDF processing tools in [my blog post](https://johannesfilter.com/python-and-pdf-a-review-of-existing-tools/)
 
 ## Development
 
