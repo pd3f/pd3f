@@ -1,4 +1,5 @@
 version: "3"
+
 services:
     web:
         environment:
@@ -11,8 +12,11 @@ services:
             # - SENTRY_URL=https://xx
             # - PRIVACY_URLS=https://example.com https://example.de
 
-    rq_monitor:
-        image: pd3f/rq-dashboard-3.8
+    dashboard:
+        image: pd3f-dashboard
+        build:
+            context: ./pd3f-dashboard
+
         depends_on:
             - redis
         environment:

@@ -1,4 +1,8 @@
 version: "3"
+
+volumes:
+  pd3f-models-cache:
+
 services:
     web:
         image: pd3f/pd3f:latest
@@ -26,9 +30,9 @@ services:
             - parsr
             - redis
         volumes:
-            - ./pd3f-data-uploads/:/uploads/
-            - ./pd3f-data-to-ocr/:/to-ocr/
-            - ./pd3f-data-cache/:/root/.cache/
+            - pd3f-models-cache:/root/.cache/
+            - ./data/pd3f-data-uploads/:/uploads/
+            - ./data/pd3f-data-to-ocr/:/to-ocr/
 
         # delete results / files after one day
         environment:
@@ -36,6 +40,8 @@ services:
         command: rq worker -u redis://redis:6379 --results-ttl 86400
 
     ocr_worker:
-        image: pd3f/pd3f-ocr:latest
+        image: pd3f-ocr-worker
+        build:
+            context: ./pd3f-ocr
         volumes:
-            - ./pd3f-data-to-ocr/:/to-ocr/
+            - ./data/pd3f-data-to-ocr/:/to-ocr/
