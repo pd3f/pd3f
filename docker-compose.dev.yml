@@ -5,9 +5,6 @@ services:
         build: .
         environment:
             - FLASK_ENV=development
-            - DEMO=1
-            - MAX_UPLOAD=50 MB
-            - PRIVACY_URLS=https://example.com https://example.de
 
         command: flask run --host 0.0.0.0
         volumes:
