@@ -12,11 +12,9 @@ services:
         command: flask run --host 0.0.0.0
         volumes:
             - ./pd3f/:/app/
-            - ./pd3f-data-uploads/:/uploads/
-
+            - ./data/pd3f-data-uploads/:/uploads/
     worker:
         volumes:
             - ./pd3f/:/app/
-            - ./pd3f-data-uploads/:/uploads/
-            - ./pd3f-data-to-ocr/:/to-ocr/
-            - ./pd3f-data-cache/:/root/.cache/
+            - ./data/pd3f-data-uploads/:/uploads/
+            - ./data/pd3f-data-to-ocr/:/to-ocr/
