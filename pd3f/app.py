@@ -174,7 +174,9 @@ def get_log(job_id):
 
 @app.route("/files/<filename>", methods=["GET"])
 def dl_file(filename):
-    # TODO: add nginx redirect
+    """
+    If you use nginx, override this endoint: https://pd3f.com/docs/pd3f/prod/
+    """
     return send_from_directory(
         app.config["UPLOAD_FOLDER"], filename, as_attachment=True
     )
