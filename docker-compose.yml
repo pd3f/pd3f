@@ -10,6 +10,9 @@ services:
             - "1616:5000"
         depends_on:
             - redis
+            - parsr
+            - worker
+            - ocr_worker
         volumes:
             - ./pd3f-data-uploads/:/uploads/
         command: gunicorn app:app --bind=0.0.0.0:5000
