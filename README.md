@@ -1,8 +1,6 @@
 ![](imgs/flow.jpg)
 
-# `pd3f` – PDF Text Extractor
-
-> Beyond PDF
+# `pd3f`
 
 *Experimental, use with care.*
 
