@@ -23,7 +23,6 @@ shortuuid = "^1.0.0"
 black = {version = "*", allow-prereleases = true, python = ">=3.6"}
 pylint = "*"
 pytest = "*"
-unidecode = "*"
 
 [build-system]
 build-backend = "poetry.masonry.api"
