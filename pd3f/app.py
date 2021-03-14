@@ -54,8 +54,8 @@ def index_get():
         priv_urls = os.environ["PRIVACY_URLS"].split()
 
     max_upload = None
-    if "MAX_UPLOAD" in os.environ:
-        max_upload = os.environ["MAX_UPLOAD"]
+    if "MAX_UPLOAD_DISPLAY" in os.environ:
+        max_upload = os.environ["MAX_UPLOAD_DISPLAY"]
     return render_template(
         "index.html",
         demo=demo,
