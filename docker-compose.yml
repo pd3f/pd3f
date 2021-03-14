@@ -2,6 +2,7 @@ version: "3"
 
 volumes:
   cache:
+  to_ocr:
 
 services:
     web:
@@ -34,8 +35,8 @@ services:
             - redis
         volumes:
             - cache:/root/.cache/
+            - to_ocr:/to-ocr/
             - ./data/pd3f-data-uploads/:/uploads/
-            - ./data/pd3f-data-to-ocr/:/to-ocr/
 
         # delete results / files after one day
         environment:
@@ -47,4 +48,4 @@ services:
         build:
             context: ./pd3f-ocr
         volumes:
-            - ./data/pd3f-data-to-ocr/:/to-ocr/
+            - to_ocr:/to-ocr/
