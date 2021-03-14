@@ -1,7 +1,7 @@
 version: "3"
 
 volumes:
-  pd3f-models-cache:
+  cache:
 
 services:
     web:
@@ -30,7 +30,7 @@ services:
             - parsr
             - redis
         volumes:
-            - pd3f-models-cache:/root/.cache/
+            - cache:/root/.cache/
             - ./data/pd3f-data-uploads/:/uploads/
             - ./data/pd3f-data-to-ocr/:/to-ocr/
 
