@@ -12,12 +12,12 @@ It's built upon the output of [Parsr](https://github.com/axa-group/Parsr).
 Parsr detects hierarchies of text and splits the text into words, lines and paragraphs.
 
 Even though Parsr brings some structure to the PDF, the text is still scrambled, i.e., due to hyphens.
-The underlying Python package [`pd3f-core`](https://github.com/pd3f/pd3f-core) tries to reconstruct the original continuous text by removing hyphens, new lines and / or spaces.
+The underlying Python package [pd3f-core](https://github.com/pd3f/pd3f-core) tries to reconstruct the original continuous text by removing hyphens, new lines and / or spaces.
 It uses [language models](https://machinelearningmastery.com/statistical-language-modeling-and-neural-language-models/) to guess how the original text looked like.
 
 `pd3f` is especially useful for languages with long words such as German.
 It was mainly developed to parse German letters and official documents.
-Besides German `pd3f` supports English, Spanish and French.
+Besides German `pd3f` supports English, Spanish, French and Italian.
 More languages will be added a later stage.
 
 `pd3f` includes a Web-based GUI and a [Flask](https://flask.palletsprojects.com/)-based microservice (API).
