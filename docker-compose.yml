@@ -14,7 +14,7 @@ services:
             - worker
             - ocr_worker
         volumes:
-            - ./pd3f-data-uploads/:/uploads/
+            - ./data/pd3f-data-uploads/:/uploads/
         command: gunicorn app:app --bind=0.0.0.0:5000
 
     parsr:
