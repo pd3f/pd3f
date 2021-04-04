@@ -1,3 +1,4 @@
+import json
 import logging
 import os
 import shutil
@@ -46,6 +47,7 @@ def allow_pdf(filename):
 
 # Views
 
+
 @app.route("/", methods=["GET"])
 def index_get():
     demo = "DEMO" in os.environ and os.environ["DEMO"] == "1"
@@ -92,6 +94,13 @@ def index_post():
     fast_mode = bool(request.form.get("fast", False))
     check_ocr = bool(request.form.get("check_ocr", True))  # not in UI / expert mode
     in_browser = bool(request.form.get("in_browser", False))
+    parsr_config = request.form.get("parsr_config", None) # not in UI / expert mode
+    parsr_adjust_cleaner_config = request.form.get("parsr_adjust_cleaner_config", None) # not in UI / expert mode
+
+    if parsr_config is not None:
+        parsr_config = json.loads(parsr_config)
+    if parsr_adjust_cleaner_config is not None:
+        parsr_adjust_cleaner_config = json.loads(parsr_adjust_cleaner_config)
 
     flair_lang, tess_lang = params_to_lang_model(lang, fast_mode)
 
@@ -115,6 +124,8 @@ def index_post():
         job_timeout=JOB_TIMEOUT,
         job_id=job_id,
         fast_mode=fast_mode,
+        parsr_config=parsr_config,
+        parsr_adjust_cleaner_config=parsr_adjust_cleaner_config,
     )
 
     Path(app.config["UPLOAD_FOLDER"] + "/" + job_id + ".log").write_text("")
@@ -261,7 +272,16 @@ def do_ocr_via_folder(filename, lang):
         time.sleep(1)
 
 
-def do_the_job(filename, tables, experimental, flair_lang, tess_lang, **kwargs):
+def do_the_job(
+    filename,
+    tables,
+    experimental,
+    flair_lang,
+    tess_lang,
+    parsr_config,
+    parsr_adjust_cleaner_config,
+    **kwargs,
+):
     """
     kwargs to persist input config
     """
@@ -275,6 +295,7 @@ def do_the_job(filename, tables, experimental, flair_lang, tess_lang, **kwargs):
             clear_in_future(job_id)
             raise ValueError("could not OCR pdf")
 
+    # not using `fast` mode because it has to be validated more
     text, tables = extract(
         "/uploads/" + filename,
         tables=tables,
@@ -282,6 +303,8 @@ def do_the_job(filename, tables, experimental, flair_lang, tess_lang, **kwargs):
         force_gpu=False,
         lang=flair_lang,
         parsr_location="parsr:3001",
+        parsr_config=parsr_config or {},
+        parsr_adjust_cleaner_config=parsr_adjust_cleaner_config or [],
     )
 
     clear_in_future(job_id)
@@ -317,6 +340,7 @@ def retry_failed():
         registry.requeue(job_id)  # Puts job back in its original queue
 
     assert len(registry) == 0  # Registry will be empty when job is requeued
+
 
 @app.cli.command()
 def delete_failed():
