@@ -35,7 +35,7 @@ There will be more work to improve this software but altogether, it's unlikely t
 
 Here some things that will get improved.
 
-### statics about how long processing (per page) took in the past
+### statistics about how long processing (per page) took in the past
 
 - calculate runtime based on `job.started_at` and `job.ended_at`
 - Get average runtime of jobs and store data in redis list
