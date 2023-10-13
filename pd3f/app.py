@@ -19,6 +19,12 @@ from pd3f import extract
 
 flair.cache_root = "/root/.cache/flair"
 
+REDIS_HOSTNAME = os.environ.get("REDIS_HOSTNAME")
+if REDIS_HOSTNAME is None:
+    REDIS_HOSTNAME = "redis"
+else:
+    REDIS_HOSTNAME = str(REDIS_HOSTNAME)
+    
 JOB_TIMEOUT = os.environ.get("JOB_TIMEOUT")
 if JOB_TIMEOUT is None:
     # to disable timeout: set to -1
@@ -36,7 +42,7 @@ if "SENTRY_URL" in os.environ:
 app = Flask(__name__)
 app.config["UPLOAD_FOLDER"] = "/uploads"
 
-r = redis.from_url("redis://redis:6379")
+r = redis.from_url(f"redis://{REDIS_HOSTNAME}:6379")
 q = Queue(connection=r)
 scheduler = Scheduler(connection=r)
 
