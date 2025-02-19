@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-set -x
 
 mkdir -p /to-ocr
 

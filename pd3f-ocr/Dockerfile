@@ -1,5 +1,5 @@
 
-FROM jbarlow83/ocrmypdf:v11.6.2
+FROM jbarlow83/ocrmypdf:v16.9.0
 
 # upgrade packages
 RUN apt-get update && apt-get upgrade -y
@@ -13,4 +13,4 @@ RUN apt-get install --no-install-recommends -y \
 
 ADD ocr_folder.sh ocr_folder.sh
 
-ENTRYPOINT [ "./ocr_folder.sh" ]:
+ENTRYPOINT [ "./ocr_folder.sh" ]

@@ -1,5 +1,3 @@
-version: "3"
-
 volumes:
   cache:
   to_ocr:
