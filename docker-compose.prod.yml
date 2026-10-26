@@ -1,7 +1,5 @@
-# the published pd3f images are amd64 only, they run emulated on ARM hosts
 services:
     web:
-        platform: linux/amd64
         environment:
             DEMO: 1
             MAX_UPLOAD_DISPLAY: 50 MB
@@ -13,15 +11,8 @@ services:
             # SENTRY_URL: https://xx
             # PRIVACY_URLS: https://example.com https://example.de
 
-    worker:
-        platform: linux/amd64
-
-    ocr_worker:
-        platform: linux/amd64
-
     dashboard:
         image: pd3f/pd3f:latest
-        platform: linux/amd64
         depends_on:
             - redis
         environment:

@@ -46,8 +46,8 @@ Both pass further arguments to `docker compose up`, e.g. `-d` or `--scale worker
 To update, run `git pull` and `docker compose -f docker-compose.yml -f docker-compose.prod.yml pull` before `./prod.sh`.
 Upgrading from 0.5 needs the steps in the [release notes](https://pd3f.com/docs/pd3f/release_notes/).
 
-The published images are amd64 only, so on ARM machines such as Apple Silicon `./prod.sh` runs them emulated and a lot slower.
-`./dev.sh --build` builds pd3f natively, only Parsr stays emulated.
+The pd3f images are published for amd64 and arm64.
+Parsr is only published for amd64, on ARM machines such as Apple Silicon it runs emulated and is a lot slower.
 
 ## Services
 
@@ -103,7 +103,8 @@ poetry run ruff check .
 The tests use a fake Redis and need neither Docker nor the language models.
 
 To release, bump `version` in `pyproject.toml` and in the footer of `pd3f/templates/index.html`, then run `./push_image.sh`.
-It builds the `pd3f/pd3f` and `pd3f/pd3f-ocr` images for amd64 and pushes them to Docker Hub.
+It builds the `pd3f/pd3f` and `pd3f/pd3f-ocr` images for amd64 and arm64 and pushes them to Docker Hub.
+Multi-platform builds need Docker's containerd image store or a `docker-container` builder (`docker buildx create --use`).
 
 ## Related Work
 
