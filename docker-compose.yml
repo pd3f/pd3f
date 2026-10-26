@@ -1,8 +1,10 @@
-version: "3"
-
 volumes:
   cache:
   to_ocr:
+
+x-redis: &redis
+    # set REDIS_URL to use an external Redis
+    RQ_REDIS_URL: ${REDIS_URL:-redis://redis:6379}
 
 services:
     web:
@@ -14,17 +16,21 @@ services:
             - parsr
             - worker
             - ocr_worker
+        environment:
+            <<: *redis
         volumes:
             - ./data/pd3f-data-uploads/:/uploads/
         command: gunicorn app:app --bind=0.0.0.0:5000
 
     parsr:
         image: axarev/parsr:v1.2.2
+        # only published for amd64, runs emulated on ARM hosts
+        platform: linux/amd64
         expose:
             - 3001
 
     redis:
-        image: redis:6-alpine
+        image: redis:8-alpine
         expose:
             - 6379
 
@@ -37,15 +43,14 @@ services:
             - cache:/root/.cache/
             - to_ocr:/to-ocr/
             - ./data/pd3f-data-uploads/:/uploads/
-
-        # delete results / files after one day
         environment:
-            - KEEP_RESULTS_HOURS=24
-        command: rq worker -u redis://redis:6379 --results-ttl 86400
+            <<: *redis
+            # delete results / files after one day
+            KEEP_RESULTS_HOURS: 24
+        # the scheduler runs the delayed deletion of files
+        command: rq worker --with-scheduler --results-ttl 86400
 
     ocr_worker:
-        image: pd3f-ocr-worker
-        build:
-            context: ./pd3f-ocr
+        image: pd3f/pd3f-ocr:latest
         volumes:
             - to_ocr:/to-ocr/

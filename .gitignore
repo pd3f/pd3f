@@ -131,3 +131,4 @@ dmypy.json
 .vscode
 
 data
+/pd3f-data-*/

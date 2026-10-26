@@ -1,27 +1,32 @@
-version: "3"
-
+# the published pd3f images are amd64 only, they run emulated on ARM hosts
 services:
     web:
+        platform: linux/amd64
         environment:
-            - DEMO=1
-            - MAX_UPLOAD_DISPLAY=50 MB
-            - POLL_INTERVAL=2000
-            - WEB_CONCURRENCY=1
+            DEMO: 1
+            MAX_UPLOAD_DISPLAY: 50 MB
+            POLL_INTERVAL: 2000
+            WEB_CONCURRENCY: 1
             # timeout: 1 day
-            - JOB_TIMEOUT=86400
-            # - SENTRY_URL=https://xx
-            # - PRIVACY_URLS=https://example.com https://example.de
+            JOB_TIMEOUT: 86400
+            # set SENTRY_URL on `worker`, too
+            # SENTRY_URL: https://xx
+            # PRIVACY_URLS: https://example.com https://example.de
+
+    worker:
+        platform: linux/amd64
+
+    ocr_worker:
+        platform: linux/amd64
 
     dashboard:
-        image: pd3f-dashboard
-        build:
-            context: ./pd3f-dashboard
-
+        image: pd3f/pd3f:latest
+        platform: linux/amd64
         depends_on:
             - redis
         environment:
-            - RQ_DASHBOARD_REDIS_URL=redis://redis:6379
+            RQ_DASHBOARD_REDIS_URL: ${REDIS_URL:-redis://redis:6379}
+        # no authentication, so only reachable from the host itself
         ports:
-            - "9181:9181"
-        entrypoint:
-            ["python3", "-m", "rq_dashboard", "--url-prefix", "/dashboard"]
+            - "127.0.0.1:9181:9181"
+        command: rq-dashboard --url-prefix /dashboard

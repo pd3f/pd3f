@@ -1,29 +1,43 @@
-[tool.poetry]
-authors = ["Johannes Filter <hi@jfilter.de>"]
-description = "Flask Micro Service + Web-based GUI for pd3f-core"
-license = "AGPL-3.0-only"
+[project]
 name = "pd3f-service"
-readme = "README.md"
-repository = "https://github.com/pd3f/pd3f"
 version = "0.5.0"
+description = "Flask micro service and web GUI for pd3f-core"
+license = "AGPL-3.0-only"
+authors = [{ name = "Johannes Filter", email = "hi@jfilter.de" }]
+readme = "README.md"
+requires-python = ">=3.13,<3.14"
+dependencies = [
+    "flask>=3.1",
+    "gunicorn>=23",
+    "pd3f>=0.5.0,<0.6",
+    "redis>=5",
+    "rq>=2.12,<3",
+    "rq-dashboard>=0.9",
+    "sentry-sdk[flask]>=2",
+    "shortuuid>=1",
+    "torch",
+]
 
+[project.urls]
+Repository = "https://github.com/pd3f/pd3f"
+
+[dependency-groups]
+dev = ["fakeredis", "pytest", "pytest-cov", "requests", "ruff"]
+
+[tool.poetry]
+package-mode = false
+
+# the Docker image has no GPU access, the CPU build of torch is a fraction of the size
 [tool.poetry.dependencies]
-click = "^7.1.2"
-flask = "^1.1.0"
-gunicorn = "^20.0.4"
-pd3f = "~0.4.0"
-python = "~3.8"
-redis = "^3.5.3"
-rq = "1.5.2"
-rq-scheduler = "^0.11.0"
-sentry-sdk = {version = "^1.0.0", extras = ["flask"]}
-shortuuid = "^1.0.0"
+torch = [
+    { markers = "sys_platform == 'linux'", source = "pytorch-cpu" },
+    { markers = "sys_platform != 'linux'", version = "*" },
+]
 
-[tool.poetry.dev-dependencies]
-black = {version = "*", allow-prereleases = true, python = ">=3.6"}
-pylint = "*"
-pytest = "*"
+[[tool.poetry.source]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+priority = "explicit"
 
-[build-system]
-build-backend = "poetry.masonry.api"
-requires = ["poetry>=0.12"]
+[tool.pytest.ini_options]
+pythonpath = ["pd3f"]

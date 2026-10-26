@@ -7,24 +7,29 @@ from datetime import timedelta
 from pathlib import Path
 from zipfile import ZipFile
 
-import flair
 import redis
 import shortuuid
-from flask import Flask, abort, redirect, render_template, request, send_from_directory, url_for
+from flask import (
+    Flask,
+    abort,
+    redirect,
+    render_template,
+    request,
+    send_from_directory,
+    url_for,
+)
 from rq import Queue, get_current_job
-from rq_scheduler import Scheduler
 from werkzeug.utils import secure_filename
 
 from pd3f import extract
 
-flair.cache_root = "/root/.cache/flair"
+logger = logging.getLogger(__name__)
 
-JOB_TIMEOUT = os.environ.get("JOB_TIMEOUT")
-if JOB_TIMEOUT is None:
-    # to disable timeout: set to -1
-    JOB_TIMEOUT = -1
-else:
-    JOB_TIMEOUT = int(JOB_TIMEOUT)
+UPLOADS = Path("/uploads")
+TO_OCR = Path("/to-ocr")
+
+# -1 disables the timeout
+JOB_TIMEOUT = int(os.environ.get("JOB_TIMEOUT", "-1"))
 
 if "SENTRY_URL" in os.environ:
     import sentry_sdk
@@ -34,15 +39,24 @@ if "SENTRY_URL" in os.environ:
 
 
 app = Flask(__name__)
-app.config["UPLOAD_FOLDER"] = "/uploads"
 
-r = redis.from_url("redis://redis:6379")
-q = Queue(connection=r)
-scheduler = Scheduler(connection=r)
+q = Queue(connection=redis.from_url(os.environ["RQ_REDIS_URL"]))
 
 
 def allow_pdf(filename):
-    return "." in filename and filename.rsplit(".", 1)[1].lower() in "pdf"
+    return filename.lower().endswith(".pdf")
+
+
+def form_flag(name, default):
+    """Read a boolean form field: 1/true/on/yes or 0/false/off/no."""
+    value = request.form.get(name)
+    if value is None:
+        return default
+    if value.lower() in ("1", "true", "on", "yes"):
+        return True
+    if value.lower() in ("", "0", "false", "off", "no"):
+        return False
+    abort(400, f"invalid value for {name}: {value}")
 
 
 # Views
@@ -86,16 +100,18 @@ def index_post():
     lang = request.form.get("lang")
 
     # limit to some languages for now
-    if not lang in ("de", "es", "en", "fr", "it"):
+    if lang not in ("de", "es", "en", "fr", "it"):
         abort(400)
 
-    experimental = bool(request.form.get("experimental", False))
-    tables = bool(request.form.get("tables", False))
-    fast_mode = bool(request.form.get("fast", False))
-    check_ocr = bool(request.form.get("check_ocr", True))  # not in UI / expert mode
-    in_browser = bool(request.form.get("in_browser", False))
-    parsr_config = request.form.get("parsr_config", None) # not in UI / expert mode
-    parsr_adjust_cleaner_config = request.form.get("parsr_adjust_cleaner_config", None) # not in UI / expert mode
+    experimental = form_flag("experimental", False)
+    tables = form_flag("tables", False)
+    fast_mode = form_flag("fast", False)
+    check_ocr = form_flag("check_ocr", True)  # not in UI / expert mode
+    in_browser = form_flag("in_browser", False)
+    parsr_config = request.form.get("parsr_config")  # not in UI / expert mode
+    parsr_adjust_cleaner_config = request.form.get(
+        "parsr_adjust_cleaner_config"
+    )  # not in UI / expert mode
 
     if parsr_config is not None:
         parsr_config = json.loads(parsr_config)
@@ -110,8 +126,9 @@ def index_post():
     job_id = shortuuid.ShortUUID().random(length=22)
     filename = job_id + secure_filename(file.filename)[:200]
 
-    fn = os.path.join(app.config["UPLOAD_FOLDER"], filename)
-    file.save(fn)
+    file.save(UPLOADS / filename)
+    # before enqueueing, so a fast worker's first lines don't get truncated
+    (UPLOADS / f"{job_id}.log").write_text("")
 
     q.enqueue(
         do_the_job,
@@ -128,8 +145,6 @@ def index_post():
         parsr_adjust_cleaner_config=parsr_adjust_cleaner_config,
     )
 
-    Path(app.config["UPLOAD_FOLDER"] + "/" + job_id + ".log").write_text("")
-
     # simpler than checking for accept header
     if in_browser:
         return redirect(url_for("result", job_id=job_id))
@@ -137,21 +152,13 @@ def index_post():
 
 
 def persists_results(filename, text, tables):
-    Path(app.config["UPLOAD_FOLDER"] + "/" + filename + ".txt").write_text(text)
+    (UPLOADS / f"{filename}.txt").write_text(text)
 
-    with ZipFile(
-        app.config["UPLOAD_FOLDER"] + "/" + filename + "_tables.zip", "w"
-    ) as zipObj2:
-        if tables is not None:
-            for i, t in enumerate(tables):
-
-                Path(
-                    app.config["UPLOAD_FOLDER"] + "/" + filename + f"_table_{i}.csv"
-                ).write_text(t)
-
-                zipObj2.write(
-                    app.config["UPLOAD_FOLDER"] + "/" + filename + f"_table_{i}.csv"
-                )
+    with ZipFile(UPLOADS / f"{filename}_tables.zip", "w") as zip_file:
+        for i, t in enumerate(tables or []):
+            csv_path = UPLOADS / f"{filename}_table_{i}.csv"
+            csv_path.write_text(t)
+            zip_file.write(csv_path, arcname=csv_path.name)
 
 
 @app.route("/update/<job_id>", methods=["GET"])
@@ -161,15 +168,16 @@ def get_log(job_id):
     if j is None:
         abort(400)
 
-    log = Path(app.config["UPLOAD_FOLDER"] + "/" + job_id + ".log").read_text()
+    log = (UPLOADS / f"{job_id}.log").read_text()
 
     if j.is_finished:
-        persists_results(j.kwargs["filename"], *j.result)
+        text, tables = j.return_value()
+        persists_results(j.kwargs["filename"], text, tables)
 
         return {
             "log": log,
-            "text": j.result[0],
-            "tables": j.result[1],
+            "text": text,
+            "tables": tables,
             "filename": j.kwargs["filename"],
         }
     elif j.is_failed:
@@ -188,9 +196,7 @@ def dl_file(filename):
     """
     If you use nginx, override this endoint: https://pd3f.com/docs/pd3f/prod/
     """
-    return send_from_directory(
-        app.config["UPLOAD_FOLDER"], filename, as_attachment=True
-    )
+    return send_from_directory(UPLOADS, filename, as_attachment=True)
 
 
 @app.route("/result/<job_id>/", methods=["GET"])
@@ -199,9 +205,7 @@ def result(job_id):
     if j is None:
         abort(400)
 
-    poll_interval = (
-        os.environ["POLL_INTERVAL"] if "POLL_INTERVAL" in os.environ else 500
-    )
+    poll_interval = os.environ.get("POLL_INTERVAL", "500")
 
     return render_template(
         "result.html", job_id=job_id, **j.kwargs, poll_interval=poll_interval
@@ -246,14 +250,18 @@ def do_ocr_via_folder(filename, lang):
     """
     This is blocking the worker, but who cares. The OCR will take all CPUs anyhow.
     """
-    logging.info("setting up ocr")
-    fn_p = Path("/uploads/" + filename)
-    new_p = Path("/to-ocr/" + fn_p.stem + f".{lang}" + fn_p.suffix)
+    logger.info("setting up ocr")
+    fn_p = UPLOADS / filename
+    # pd3f-ocr only picks up lowercase .pdf files
+    new_p = TO_OCR / f"{fn_p.stem}.{lang}.pdf"
     finished_p_success = new_p.with_suffix(".pdf.done")
     finished_p_error = new_p.with_suffix(".pdf.failed")
     finished_p_log = new_p.with_suffix(".pdf.log")
     new_p.parent.mkdir(exist_ok=True)
-    shutil.copy2(fn_p, new_p)
+    # copy under another name first, pd3f-ocr would pick up a half-written .pdf
+    part_p = new_p.with_name(f"{new_p.name}.part")
+    shutil.copy2(fn_p, part_p)
+    part_p.replace(new_p)
 
     while True:
         # file gets deleted when processing is finished
@@ -261,12 +269,12 @@ def do_ocr_via_folder(filename, lang):
             if finished_p_success.is_file():
                 # success
                 shutil.copy2(finished_p_success, fn_p)
-                logging.info("ocr finished successfully")
+                logger.info("ocr finished successfully")
                 return True
             if finished_p_error.is_file():
                 finished_p_error.unlink()
-                logging.info(finished_p_log.read_text())
-                logging.info("ocr failed, aborting. sorry :/")
+                logger.info(finished_p_log.read_text())
+                logger.info("ocr failed, aborting. sorry :/")
                 return False
 
         time.sleep(1)
@@ -288,16 +296,19 @@ def do_the_job(
     job = get_current_job()
     job_id = job.id
 
-    logging.basicConfig(filename=f"/uploads/{job_id}.log", level=logging.INFO)
+    # the worker logs the exception of a failed job here, too; `force` replaces
+    # the handler of the previous job if the worker does not fork
+    logging.basicConfig(
+        filename=UPLOADS / f"{job_id}.log", level=logging.INFO, force=True
+    )
 
-    if tess_lang is not None:
-        if not do_ocr_via_folder(filename, tess_lang):
-            clear_in_future(job_id)
-            raise ValueError("could not OCR pdf")
+    if tess_lang is not None and not do_ocr_via_folder(filename, tess_lang):
+        clear_in_future(job_id)
+        raise ValueError("could not OCR pdf")
 
     # not using `fast` mode because it has to be validated more
     text, tables = extract(
-        "/uploads/" + filename,
+        UPLOADS / filename,
         tables=tables,
         experimental=experimental,
         force_gpu=False,
@@ -313,10 +324,10 @@ def do_the_job(
 
 
 def delete_all_files_for_job(job_id):
-    for f in Path("/uploads/").glob(job_id + "*"):
+    for f in UPLOADS.glob(job_id + "*"):
         f.unlink()
 
-    for f in Path("/to-ocr/").glob(job_id + "*"):
+    for f in TO_OCR.glob(job_id + "*"):
         f.unlink()
 
 
@@ -324,7 +335,7 @@ def clear_in_future(job_id):
     """
     Delete successfull tasks in some time, e.g., 24 hours.
     """
-    scheduler.enqueue_in(
+    q.enqueue_in(
         timedelta(hours=int(os.environ["KEEP_RESULTS_HOURS"])),
         delete_all_files_for_job,
         job_id,
