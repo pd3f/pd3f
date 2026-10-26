@@ -130,15 +130,13 @@
                     if ("log" in json) {
                         const logElem = document.getElementById("log");
                         if (json.log.length == 0)
-                            logElem.innerHTML = "no logs yet";
-                        else
-                            logElem.innerHTML = json.log.replace(/\n/g, "<br>");
+                            logElem.innerText = "no logs yet";
+                        else logElem.innerText = json.log;
                     }
 
                     if ("text" in json) {
                         const outputElem = document.getElementById("output");
-                        // outputElem.innerHTML = json.text.replace(/\n/g, "<br>");
-                        outputElem.innerHTML = json.text;
+                        outputElem.value = json.text;
                         statusElem.innerHTML =
                             '<span class="badge badge-success">done</span>';
 
@@ -150,26 +148,17 @@
                         buttons =
                             '<a class="btn btn-primary mr-5" href="/files/{{filename}}" role="button">download OCRd pdf</a> <a class="btn btn-primary mr-5" href="/files/{{filename}}.txt" role="button">download text</a> <button type="button" id="copyext" class="btn btn-secondary">copy text</button>';
 
-                        if ("tables" in json) {
-                            if (json.tables.length > 1) {
-                                buttons +=
-                                    '<a class="btn btn-primary" href="/files/{{filename}}_tables.zip" role="button">download tables (zip)</a>';
+                        // `tables` is null if no tables were requested
+                        if (json.tables && json.tables.length > 0) {
+                            buttons +=
+                                '<a class="btn btn-primary" href="/files/{{filename}}_tables.zip" role="button">download tables (zip)</a>';
 
-                                const tablesElem = document.getElementById(
-                                    "tables"
-                                );
-
-                                let tablesStr = "";
-                                json.tables.forEach((x, i) => {
-                                    tablesStr +=
-                                        "table #" +
-                                        i +
-                                        "<br><br>" +
-                                        x +
-                                        "<br><br>";
-                                });
-                                tablesElem.innerHTML = tablesStr;
-                            }
+                            const tablesElem = document.getElementById(
+                                "tables"
+                            );
+                            tablesElem.innerText = json.tables
+                                .map((x, i) => "table #" + i + "\n\n" + x)
+                                .join("\n\n");
                         }
                         const downloadsElem = document.getElementById(
                             "downloads"
