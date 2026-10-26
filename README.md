@@ -20,7 +20,6 @@ It was mainly developed to parse German letters and official documents.
 Besides German `pd3f` supports English, Spanish, French and Italian.
 
 `pd3f` includes a Web-based GUI and a [Flask](https://flask.palletsprojects.com/)-based microservice (API).
-You can find a demo at [demo.pd3f.com](https://demo.pd3f.com).
 
 ## Documentation
 
