@@ -19,6 +19,7 @@ from flask import (
     url_for,
 )
 from rq import Queue, get_current_job
+from rq.results import Result
 from werkzeug.utils import secure_filename
 
 from pd3f import extract
@@ -139,6 +140,8 @@ def index_post():
         tables=tables,
         experimental=experimental,
         job_timeout=JOB_TIMEOUT,
+        # the job lives until `delete_job_and_files` removes it with its files
+        result_ttl=-1,
         job_id=job_id,
         fast_mode=fast_mode,
         parsr_config=parsr_config,
@@ -172,8 +175,6 @@ def get_log(job_id):
 
     if j.is_finished:
         text, tables = j.return_value()
-        persists_results(j.kwargs["filename"], text, tables)
-
         return {
             "log": log,
             "text": text,
@@ -302,42 +303,43 @@ def do_the_job(
         filename=UPLOADS / f"{job_id}.log", level=logging.INFO, force=True
     )
 
-    if tess_lang is not None and not do_ocr_via_folder(filename, tess_lang):
+    try:
+        if tess_lang is not None and not do_ocr_via_folder(filename, tess_lang):
+            raise ValueError("could not OCR pdf")
+
+        # not using `fast` mode because it has to be validated more
+        text, tables = extract(
+            UPLOADS / filename,
+            tables=tables,
+            experimental=experimental,
+            force_gpu=False,
+            lang=flair_lang,
+            parsr_location="parsr:3001",
+            parsr_config=parsr_config or {},
+            parsr_adjust_cleaner_config=parsr_adjust_cleaner_config or [],
+        )
+        persists_results(filename, text, tables)
+        return text, tables
+    finally:
         clear_in_future(job_id)
-        raise ValueError("could not OCR pdf")
-
-    # not using `fast` mode because it has to be validated more
-    text, tables = extract(
-        UPLOADS / filename,
-        tables=tables,
-        experimental=experimental,
-        force_gpu=False,
-        lang=flair_lang,
-        parsr_location="parsr:3001",
-        parsr_config=parsr_config or {},
-        parsr_adjust_cleaner_config=parsr_adjust_cleaner_config or [],
-    )
-
-    clear_in_future(job_id)
-
-    return text, tables
 
 
-def delete_all_files_for_job(job_id):
-    for f in UPLOADS.glob(job_id + "*"):
-        f.unlink()
+def delete_job_and_files(job_id):
+    """Delete the job first, so no client sees it without its files."""
+    job = q.fetch_job(job_id)
+    if job is not None:
+        job.delete()
+        Result.delete_all(job)
 
-    for f in TO_OCR.glob(job_id + "*"):
+    for f in [*UPLOADS.glob(f"{job_id}*"), *TO_OCR.glob(f"{job_id}*")]:
         f.unlink()
 
 
 def clear_in_future(job_id):
-    """
-    Delete successfull tasks in some time, e.g., 24 hours.
-    """
+    """Delete the job and its files after `KEEP_RESULTS_HOURS`."""
     q.enqueue_in(
         timedelta(hours=int(os.environ["KEEP_RESULTS_HOURS"])),
-        delete_all_files_for_job,
+        delete_job_and_files,
         job_id,
     )
 
@@ -358,9 +360,8 @@ def delete_failed():
     registry = q.failed_job_registry
 
     for job_id in registry.get_job_ids():
-        # delete all files
-        delete_all_files_for_job(job_id)
-        # delete job
+        # also drops entries whose job already expired
         registry.remove(job_id)
+        delete_job_and_files(job_id)
 
     assert len(registry) == 0  # Registry will be empty when all are deleted

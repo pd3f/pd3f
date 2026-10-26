@@ -45,10 +45,10 @@ services:
             - ./data/pd3f-data-uploads/:/uploads/
         environment:
             <<: *redis
-            # delete results / files after one day
+            # delete jobs and their files after one day
             KEEP_RESULTS_HOURS: 24
-        # the scheduler runs the delayed deletion of files
-        command: rq worker --with-scheduler --results-ttl 86400
+        # the scheduler runs the delayed deletion of jobs and files
+        command: rq worker --with-scheduler
 
     ocr_worker:
         image: pd3f/pd3f-ocr:latest

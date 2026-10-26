@@ -70,7 +70,7 @@ Environment variables, set in the Compose files:
 
 | Variable | Service | Meaning |
 | --- | --- | --- |
-| `KEEP_RESULTS_HOURS` | `worker` | Delete the files of a job this many hours after it finished. Required, 24 in `docker-compose.yml`. |
+| `KEEP_RESULTS_HOURS` | `worker` | Delete a job and its files this many hours after it finished or failed. Required, 24 in `docker-compose.yml`. |
 | `JOB_TIMEOUT` | `web` | Mark jobs running longer than this many seconds as failed. Default: no timeout. |
 | `DEMO` | `web` | `1` shows a note that this is a demo whose results get deleted. |
 | `MAX_UPLOAD_DISPLAY` | `web` | Upload limit shown in the GUI, e.g. `50 MB`. Only a hint, enforce the limit in your reverse proxy. |

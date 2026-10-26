@@ -7,6 +7,7 @@ import fakeredis
 import pytest
 from rq import Queue, SimpleWorker
 from rq.registry import ScheduledJobRegistry
+from rq.results import Result
 
 
 @pytest.fixture
@@ -60,24 +61,37 @@ def test_job_lifecycle(app):
     assert job.kwargs["tables"] is True
     assert job.kwargs["tess_lang"] is None
     assert job.kwargs["filename"] == f"{job_id}Some_File.PDF"
+    # job and result never expire, `delete_job_and_files` removes them
+    assert app.q.connection.ttl(job.key) == -1
+    assert app.q.connection.ttl(Result.get_key(job_id)) == -1
 
-    update = app.app.test_client().get(f"/update/{job_id}").json
-    assert update["text"] == "the text"
-    assert update["tables"] == ["a,b\n"]
-
+    # the worker writes the files, before any client asks for the result
     filename = job.kwargs["filename"]
     assert (app.UPLOADS / f"{filename}.txt").read_text() == "the text"
     with zipfile.ZipFile(app.UPLOADS / f"{filename}_tables.zip") as z:
         assert z.namelist() == [f"{filename}_table_0.csv"]
 
-    # deletion of the files is scheduled
+    update = app.app.test_client().get(f"/update/{job_id}").json
+    assert update["text"] == "the text"
+    assert update["tables"] == ["a,b\n"]
+
+    run_scheduled_deletion(app, job_id)
+
+
+def run_scheduled_deletion(app, job_id):
+    """Run the deletion scheduled for `job_id`, check that job and files are gone."""
     registry = ScheduledJobRegistry(queue=app.q)
     deletion = app.q.fetch_job(registry.get_job_ids()[0])
-    assert deletion.func_name == "app.delete_all_files_for_job"
+    assert deletion.func_name == "app.delete_job_and_files"
     assert deletion.args == (job_id,)
+    deletion.func(*deletion.args)
+
+    assert app.app.test_client().get(f"/update/{job_id}").status_code == 400
+    assert not app.q.connection.exists(Result.get_key(job_id))
+    assert list(app.UPLOADS.iterdir()) == []
 
 
-def test_failed_job(app, monkeypatch):
+def failed_job(app, monkeypatch):
     def fail(*args, **kwargs):
         raise ValueError("Parsr failed")
 
@@ -85,10 +99,55 @@ def test_failed_job(app, monkeypatch):
     monkeypatch.setattr(app, "q", Queue(connection=app.q.connection))
     job_id = post(app, check_ocr="0").json["id"]
     SimpleWorker([app.q], connection=app.q.connection).work(burst=True)
+    return job_id
 
+
+def test_failed_job(app, monkeypatch):
+    job_id = failed_job(app, monkeypatch)
     update = app.app.test_client().get(f"/update/{job_id}").json
     assert update["failed"] is True
     assert "ValueError: Parsr failed" in update["log"]
+
+    run_scheduled_deletion(app, job_id)
+
+
+def test_failed_ocr(app, monkeypatch):
+    monkeypatch.setattr(app, "q", Queue(connection=app.q.connection))
+    ocr_worker = fake_ocr_worker(app, "failed")
+    job_id = post(app).json["id"]
+    SimpleWorker([app.q], connection=app.q.connection).work(burst=True)
+    ocr_worker.join()
+
+    update = app.app.test_client().get(f"/update/{job_id}").json
+    assert update["failed"] is True
+    assert "tesseract crashed" in update["log"]
+
+    run_scheduled_deletion(app, job_id)
+    assert list(app.TO_OCR.iterdir()) == []
+
+
+def test_queued_job(app, monkeypatch):
+    monkeypatch.setattr(app, "q", Queue(connection=app.q.connection))
+    job_id = post(app, check_ocr="0").json["id"]
+    update = app.app.test_client().get(f"/update/{job_id}").json
+    assert update == {"log": "", "position": 0}
+
+
+def test_delete_failed(app, monkeypatch):
+    job_id = failed_job(app, monkeypatch)
+    result = app.app.test_cli_runner().invoke(args=["delete-failed"])
+
+    assert result.exit_code == 0, result.output
+    assert app.q.fetch_job(job_id) is None
+    assert list(app.UPLOADS.iterdir()) == []
+
+
+def test_retry_failed(app, monkeypatch):
+    job_id = failed_job(app, monkeypatch)
+    result = app.app.test_cli_runner().invoke(args=["retry-failed"])
+
+    assert result.exit_code == 0, result.output
+    assert app.q.fetch_job(job_id).is_queued
 
 
 def test_redirect_in_browser(app):
@@ -167,13 +226,13 @@ def test_parsr_config_passed_to_extract(app, monkeypatch):
     assert calls[0]["parsr_config"] == {}
 
 
-def test_delete_all_files_for_job(app):
+def test_delete_job_and_files(app):
     app.TO_OCR.mkdir()
     for path in (app.UPLOADS / "job1a.pdf", app.UPLOADS / "job2.pdf"):
         path.write_text("")
     (app.TO_OCR / "job1a.deu.pdf.log").write_text("")
 
-    app.delete_all_files_for_job("job1")
+    app.delete_job_and_files("job1")
 
     assert [p.name for p in app.UPLOADS.iterdir()] == ["job2.pdf"]
     assert list(app.TO_OCR.iterdir()) == []
