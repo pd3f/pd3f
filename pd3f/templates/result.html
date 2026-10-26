@@ -122,11 +122,11 @@
             async function update() {
                 const url = "/update/{{job_id}}";
                 const response = await fetch(url);
+                const statusElem = document.getElementById("status");
 
                 if (response.ok) {
                     const json = await response.json();
 
-                    const statusElem = document.getElementById("status");
                     if ("log" in json) {
                         const logElem = document.getElementById("log");
                         if (json.log.length == 0)
@@ -188,8 +188,16 @@
                                     '<span class="badge badge-info">running</span>';
                         }
                     }
+                } else if (response.status == 400) {
+                    // the job and its files got deleted
+                    statusElem.innerHTML =
+                        '<span class="badge badge-danger">job not found</span>';
+                    clearInterval(window.pd3fInterval);
                 } else {
-                    alert("HTTP-Error: " + response.status);
+                    statusElem.innerHTML =
+                        '<span class="badge badge-warning">HTTP error ' +
+                        response.status +
+                        "</span>";
                 }
             }
             window.pd3fInterval = setInterval(update, {{poll_interval}});
