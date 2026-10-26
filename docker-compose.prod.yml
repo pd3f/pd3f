@@ -10,6 +10,9 @@ services:
             # set SENTRY_URL on `worker`, too
             # SENTRY_URL: https://xx
             # PRIVACY_URLS: https://example.com https://example.de
+        # only reachable from the host itself, so requests can't bypass the reverse proxy
+        ports: !override
+            - "127.0.0.1:1616:5000"
 
     dashboard:
         image: pd3f/pd3f:latest

@@ -40,7 +40,7 @@ Then open <http://localhost:1616>.
 The first start downloads about 10 GB of Docker images, the first job downloads the language models.
 
 `./prod.sh` runs the published `pd3f/pd3f` and `pd3f/pd3f-ocr` images with gunicorn and an [RQ dashboard](https://github.com/Parallels/rq-dashboard) at <http://localhost:9181/dashboard/>.
-The dashboard has no login and is only reachable from the host itself.
+The web app and the dashboard are only reachable from the host itself; for access from other machines, put a reverse proxy in front, see [In production with nginx](https://pd3f.com/docs/pd3f/prod/).
 `./dev.sh --build` builds both images from this checkout and runs Flask's development server with the code mounted into the containers.
 Both pass further arguments to `docker compose up`, e.g. `-d` or `--scale worker=2`.
 To update, run `git pull` and `docker compose -f docker-compose.yml -f docker-compose.prod.yml pull` before `./prod.sh`.

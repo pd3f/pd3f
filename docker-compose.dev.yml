@@ -4,6 +4,9 @@ services:
         environment:
             FLASK_DEBUG: 1
         command: flask run --host 0.0.0.0
+        # the debugger runs code, so only reachable from the host itself
+        ports: !override
+            - "127.0.0.1:1616:5000"
         volumes:
             - ./pd3f/:/app/
             - ./data/pd3f-data-uploads/:/uploads/
