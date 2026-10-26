@@ -1,6 +1,6 @@
 [project]
 name = "pd3f-service"
-version = "0.5.0"
+version = "0.6.0"
 description = "Flask micro service and web GUI for pd3f-core"
 license = "AGPL-3.0-only"
 authors = [{ name = "Johannes Filter", email = "hi@jfilter.de" }]
