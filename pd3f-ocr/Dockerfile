@@ -1,16 +1,13 @@
+FROM jbarlow83/ocrmypdf:v17.13.0
 
-FROM jbarlow83/ocrmypdf:v11.6.2
+# root: Docker creates the shared /to-ocr volume as root
+USER root
 
-# upgrade packages
-RUN apt-get update && apt-get upgrade -y
+# qpdf decrypts PDFs, Italian is not part of the base image
+RUN apt-get update \
+    && apt-get install --no-install-recommends -y qpdf tesseract-ocr-ita \
+    && rm -rf /var/lib/apt/lists/*
 
-# remove not supported languages
-RUN apt-get remove --purge -y tesseract-ocr-chi-sim tesseract-ocr-por
+COPY --chmod=755 ocr_folder.sh /usr/local/bin/ocr_folder.sh
 
-# install supported languages (only Italian for now)
-RUN apt-get install --no-install-recommends -y \
-    tesseract-ocr-ita
-
-ADD ocr_folder.sh ocr_folder.sh
-
-ENTRYPOINT [ "./ocr_folder.sh" ]:
+ENTRYPOINT ["ocr_folder.sh"]
