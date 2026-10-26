@@ -60,6 +60,17 @@ def form_flag(name, default):
     abort(400, f"invalid value for {name}: {value}")
 
 
+def form_json(name):
+    """Read an optional JSON form field."""
+    value = request.form.get(name)
+    if value is None:
+        return None
+    try:
+        return json.loads(value)
+    except json.JSONDecodeError:
+        abort(400, f"invalid JSON for {name}")
+
+
 # Views
 
 
@@ -109,15 +120,9 @@ def index_post():
     fast_mode = form_flag("fast", False)
     check_ocr = form_flag("check_ocr", True)  # not in UI / expert mode
     in_browser = form_flag("in_browser", False)
-    parsr_config = request.form.get("parsr_config")  # not in UI / expert mode
-    parsr_adjust_cleaner_config = request.form.get(
-        "parsr_adjust_cleaner_config"
-    )  # not in UI / expert mode
-
-    if parsr_config is not None:
-        parsr_config = json.loads(parsr_config)
-    if parsr_adjust_cleaner_config is not None:
-        parsr_adjust_cleaner_config = json.loads(parsr_adjust_cleaner_config)
+    # not in UI / expert mode
+    parsr_config = form_json("parsr_config")
+    parsr_adjust_cleaner_config = form_json("parsr_adjust_cleaner_config")
 
     flair_lang, tess_lang = params_to_lang_model(lang, fast_mode)
 

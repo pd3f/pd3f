@@ -46,7 +46,12 @@ def test_params_to_lang_model(app):
 
 @pytest.mark.parametrize(
     "form",
-    [{"lang": "ru"}, {"fast": "maybe"}, {"pdf": (io.BytesIO(b"text"), "a.txt")}],
+    [
+        {"lang": "ru"},
+        {"fast": "maybe"},
+        {"pdf": (io.BytesIO(b"text"), "a.txt")},
+        {"parsr_config": "{"},
+    ],
 )
 def test_reject_invalid_input(app, form):
     assert post(app, **form).status_code == 400
