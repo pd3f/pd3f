@@ -130,5 +130,7 @@ dmypy.json
 
 .vscode
 
-data
-/pd3f-data-*/
+# jobs and Docker Compose volumes when run from the checkout
+/data/
+/jobs/
+/pd3f-data*/

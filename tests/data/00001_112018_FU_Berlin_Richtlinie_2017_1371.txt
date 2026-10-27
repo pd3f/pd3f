@@ -1,0 +1,282 @@
+Freie Universität Berlin, Fachbereich Rechtswissenschaft, Prof. Dr. Carsten Momsen, Van't-Hoff-Str. 8, 14195 Berlin
+
+Fachbereich Rechtswissenschaft
+
+Prof. Dr. Carsten Momsen
+Van't-Hoff-Str. 8
+14195 Berlin
+
+Telefon +49 (0)30 838-59408
+
++49 (0)30 838-58707
+Fax +49 (0)30 838-458707
+E-Mail carsten.momsen@fu-berlin.de
+Internet www.jura.fu-berlin.de
+Gebäude Boltzmannstr. 3, Raum 5502
+
+14195 Berlin
+
+Bearb.-Zeichen
+
+Bearbeiter Frau Korth-Ndiaye
+
+Berlin, 20. November 2018
+
+Stellungnahme
+
+zum Referentenentwurf (RefE) des Bundesministeriums der Justiz und für Verbraucherschutz -
+
+Entwurf eines Gesetzes zur Umsetzung der Richtlinie (EU) 2017/1371 des Europäischen Parlaments und des Rates vom 5. Juli 2017 über die strafrechtliche Bekämpfung von gegen die finanziellen Interessen der Union gerichtetem Betrug
+
+I. Vorbemerkung ............................................................................................ 2
+
+II. Zunehmende Kompetenzen der EU in Strafsachen? ............................ 3
+
+III. Struktur und Systematik des Vermögensschutzes im deutschen Strafrecht ........................................................................................................ 4
+
+1. Regelungsort.......................................................................................... 4
+
+2. Begriffe ................................................................................................... 5
+
+a) Leistungen (Art. 1 § 1 EUFinSchStG-E), Einnahmen (Art. 1 § 2 EUFinSchStG-E) .................................................................................... 5
+
+b) "Betrug"............................................................................................... 6
+
+3. Systematik des Vermögensschutzes................................................... 7
+
+4. Strafwürdigkeit, Strafbedürftigkeit und systematische Stellung der Art. 1 §§ 1 - 3 EUFinSchStG-E................................................................. 8
+
+a) Art. 1 § 1 EUFinSchStG-E................................................................ 9
+
+aa) Strukturelle Parallelen zu §§ 263 ff., 264StGB......................... 9
+
+bb) Strukturelle Parallelen zu § 266 StGB......................................10
+
+cc) Abweichungen von der Systematik des Vermögensschutzes im StGB..............................................................................................10
+
+b) Art. 1 § 2 EUFinSchStG-E...............................................................11
+
+c) Art. 1 § 3 EUFinSchStG-E ...............................................................13
+
+d. Erfolg i.S. der Richtlinie und Schadensbegriff i.S. §§ 263 ff.........14
+
+IV. Zusammenfassung .................................................................................16
+
+I. Vorbemerkung
+
+Die nachfolgende Stellungnahme beschränkt sich auf einige Teilaspekte des RefE sowie der Richtlinie (EU) 2017/1371 des Europäischen Rates (PIF-Richtlinie), deren Umsetzung der RefE dient. Im Zentrum der nachfolgenden Ausführungen stehen neben strukturellen und systematischen Erwägungen des Vermögensschutzes insbesondere die Regelungen des Art. 1 § 1 und § 2 sowie (knapper) § 3 des EUFinSchStG-E.
+
+Besondere Beachtung finden dabei (II.) neben dem Verhältnis von Strafrecht und Verwaltungsrecht sowie den sich insoweit ergebenden Kompetenzen bzw. Kompetenzverschiebungen; (III.) insbesondere die Struktur und Systematik des strafrechtlichen Vermögensschutzes in Deutschland, verbunden mit der Frage, ob und wie weit die Regelungen des RefE diese Struktur und Systematik beachten. In diesem Zusammenhang wird auch dazu Stellung genommen, ob sich eine generelle Strukturveränderung empfiehlt. Abschließend (IV.) erfolgt eine Stellungnahme zu den betreffenden Regelungen im RefE. Auf die Wiedergabe von Textpassagen aus dem Entwurf oder der Richtlinie wird soweit wie möglich verzichtet.
+
+II. Zunehmende Kompetenzen der EU in Strafsachen?
+
+Grundsätzlich wurde der EU erst mit der Änderung des Artikels 83 des AEU-Vertrags1 eingeräumt, in die nationalen Strafrechte einzugreifen (sog. Mindestvorschriften2). Allerdings genießt die EU schon seit Langem Kompetenzen im Bereich des Verwaltungsstrafrechts, sofern ein Bedürfnis besteht, den Schutz "der finanziellen Interessen der Europäischen Gemeinschaften" umzusetzen3. Mit demselben Argument, wird nun gleichsam auf höherem Level die Richtlinie 2017/1371 umgesetzt4.
+
+Zur Ausleuchtung des Hintergrundes ist sinnvoll, die Richtlinie 2017/1317 in Zusammenhang mit der Verordnung 2017/1939 über europäische Staatsanwaltschaft zu betrachten. Beide europäische Akte führen zu einer Erweiterung der Kompetenzen der EU in Strafsachen. Dabei handelt nicht (nur) um die Mitwirkung der EU bei der Gestaltung der materiellen Strafgesetze (und Sanktionen). Vielmehr soll ab 20205 auch die Verfolgung der Straftaten, welche originär die EU betreffen, auf der supranationalen Ebene institutionalisiert werden.
+
+Zusammenfassend, es geht um der unter dem Oberbegriff "zum Zwecke des Schutzes der Europäischen Union" um einen Doppel-Mechanismus: Einerseits ist die Strafbarkeit im jeweiligen staatlichen Strafrecht zu prüfen, andererseits soll in geeigneten Fällen gleichsam eine Harmonisierung mit EU-spezifischen Strafnormen erfolgen, um hier die Europäische Staatsanwaltschaft auf europäischer Ebene mit der Strafverfolgung zu betrauen. Es fragt sich, ob diese Erwägungen ausreichend sind, um den gesamten Schutz der finanziellen Interessend er Union strafrechtlich auszugestalten oder ob nicht verwaltungsstrafrechtliche Sanktionen ausreichen, wie bspw. §§ 30, 130 OWiG.
+
+Die Diskussion um materielle Abgrenzungskriterien kann im Rahmen dieser Stellungnahme nicht nachgezeichnet werden. Zur Abgrenzung von Kriminalstrafrecht und Verwaltungsstrafrecht existiert kein allgemein anerkanntes "scharfes" Kriterium. Sowohl im deutschen Strafrecht als auch in den meisten anderen europäischen Staaten ist der Schutz des Vermögens kriminalstrafrechtlich jedenfalls nicht umfassend, sondern fragmentarisch ausgestaltet. Vielfach sind Beeinträchtigungen von Vermögenswerten Dritter oder der Allgemeinheit im Verwaltungsstrafrecht (Ordnungswidrigkeitenrecht), im Verwaltungsrecht und im Zivilrecht geregelt. Dies gilt insbesondere für den Bereich unvorsätzlicher Beeinträchtigungen.
+
+Geht man davon aus, dass die Zuordnung zum Kriminalstrafrecht oder zum Verwaltungsstrafrecht grundsätzlich dem Ermessen des Gesetzgebers unterliegt, so kann es auch zur "Doppelbestrafung" nach Verwaltungsstrafrecht und Strafrecht kommen. Jedoch gilt der Grundsatz "ultima ratio" insoweit umfassend, als eine Zuordnung zu einer Materie einen sachlichen Grund haben muss, namentlich dann, wenn die schwereren Folgen des Kriminalstrafrechts angedroht werden sollen. Allein das Ziel, der Europäischen Staatsanwaltschaft die Verfolgungskompetenz zuzuweisen, erscheint als Grund zu schwach. Daher soll nachfolgend analysiert werden, ob ein Bedürfnis für neue Regelungen in einem eigenständigen Stammgesetz zum Schutz der finanziellen Interessen der Union ausreichend legitimiert werden kann.
+
+III. Struktur und Systematik des Vermögensschutzes im deutschen Strafrecht
+
+Zutreffend gehen die Verfasser des RefE davon aus, dass wesentliche Anforderungen, die sich aus der Richtlinie ergeben, bereits im nationalen Recht umgesetzt sind.6
+
+1. Regelungsort
+
+Die verbleibend für erforderlich gehaltenen Änderungen werden im Rahmen "des Gesetzes zur Stärkung des Schutzes der finanziellen Interessen der Europäischen Union" (EU-Finanzschutzstärkungsgesetz - EUFinSchStG-E) normiert.7 Ausweislich des Besonderen Teils der Begründung soll durch Art. 1 des Entwurfs das EUFinSchStG-E als "neues Stammgesetz geschaffen werden, welches ausschließlich dem strafrechtlichen Schutz der finanziellen Interessen der Europäischen Union dient".8 Wie sich aus Art. 2 des RegE ergibt, sollen jedoch weitere Vorgaben der Richtlinie im Rahmen bestehender Tatbestände des StGB umgesetzt werden.
+
+Zwar wird durch die Einführung eines eigenen Strafgesetzes die Bedeutung der finanziellen Interessen der Union gewiss unterstrichen, dennoch erscheint die Aufspaltung des strafrechtlichen Vermögensschutzes zweifelhaft, insbesondere soweit es denselben Schutzgegenstand, nämlich die vermögensrelevanten Interessen der Union betrifft. Zum einen wird es den Normunterworfenen ohne Not erschwert, die zu befolgenden Strafgesetze zu erfassen. Zum anderen ergeben sich potentielle Auslegungsdifferenzen durch die Verwendung teilweise abweichender Terminologie (finanzielle Interessen vs. Vermögen). Schließlich wird der Schutz besagter Interessen ohnedies bislang innerhalb des StGB gewährleistet. Daher empfiehlt es sich u.E., sämtliche Regelungen des RegE in das StGB zu integrieren, soweit entsprechende Neuregelungen überhaupt erforderlich sind. Hierdurch wird sich auch eine klarere Trennung von Strafrecht und Verwaltungsrecht erreichen lassen.9
+
+Auch zwischen den Regelungen des EUFinSchStG-E kann es Konkurrenzkonstellationen kommen (s.u. 2 ). Diese werden sich rechtssicher nur auflösen lassen, wenn die Neuregelungen sich auch in die begriffliche Systematik des Vermögensschutzes im StGB einpassen. Insbesondere im Hinblick auf die Definition des Vermögens (Vermögensbegriff) wie die des Schadens (Schadensbegriff) sollte vermieden werden, dass bereits die Verwendung verschiedener Begriffe zu divergierenden Auslegungsergebnissen führen kann. Diese Gefahr besteht bspw. bzgl. des Begriffs "finanzielle Interessen der Union" (Art. 2 RL10). Dieser Begriff ist deutlich unschärfer als der strafrechtliche Vermögensbegriff und kann insoweit Anlass für Auslegungsdifferenzen werden, da ein Äquivalent im StGB nicht existiert.
+
+Da sich das EUFinSchStG-E im Hinblick auf Art. 1 zudem an denselben Adressatenkreis richtet wie bzgl. Art. 2, bestehen weder zwingende Gründe für einen differenzierten Regelungsort noch sind positive Effekte einer getrenntgesetzlichen Regelung ersichtlich, welche die. o.g. Nachteile aufwiegen würden.
+
+2. Begriffe
+
+a) Leistungen (Art. 1 § 1 EUFinSchStG-E), Einnahmen (Art. 1 § 2 EUFinSchStG-E)
+
+Die Richtlinie geht von einem anderen Schutzgegenstand als dem "Vermögen" im Sinne der vermögenschützenden Tatbestände des StGB aus. Während dieses zusammengefasst in einem weiten Sinne definiert werden kann als Beziehung einer Person zu einem Wert in der Weise, dass die Person über mit der Rechtsordnung vereinbare Potenziale wirtschaftlicher Betätigung mit Hilfe rechtlich (meist zivilrechtlich) anerkannter Durchsetzungsmöglichkeiten nach ihrem Belieben verfügen und externen Störfaktoren effektiv begegnen kann.11 Mit der ständigen Rechtsprechung des BGH ist primär bei § 263 StGB, entsprechend aber auch für § 266 StGB u.a., der etwas engere sog. "wirtschaftliche Vermögensbegriff" zugrunde zu legen. Demnach gehört jede wirtschaftliche Position zum Vermögen, der im Geschäftsverkehr wirtschaftlicher Wert beigemessen wird, ohne Rücksicht darauf, ob sie in einem Recht konkretisiert oder überhaupt der Konkretisierung fähig ist.12 Die überwiegende Ansicht im Schrifttum definiert noch etwas enger Vermögen dahin, dass diese Werte unter dem Schutz der Rechtsordnung stehen müssen oder wenigstens ohne deren Missbilligung realisiert werden können.13 Demgegenüber folgt aus Art. 2 Abs. 1 lit. a) der Richtlinie, dass die finanziellen Interessen der Union geschützt sind, welchen unterfallen: " (...) sämtliche Einnahmen, Ausgaben und Vermögenswerte, die durch Folgendes erfasst, erworben oder geschuldet werden: i) den Haushaltsplan der Union, ii) den Haushaltsplänen der nach den Verträgen geschaffenen Organe, Einrichtungen und sonstigen Stellen der Union oder in den von diesen direkt oder indirekt verwalteten und überwachten Haushaltsplänen (...)". Dementsprechend ist der Schutzbereich gegenüber dem dargestellten Vermögensbegriff schon durch die Einbeziehung der Ausgabenseite deutlich erweitert. Auch erfolgt die Einbeziehung in diesen Bereich nicht nach primär materiellen, sondern nach formellen Kriterien (Haushaltspläne pp.).
+
+Auch im Verhältnis zu § 264 StGB besteht deutlicher Konkretisierungsbedarf. Denn die Bestimmung des Schutzgegenstands kann ebenfalls nicht aus der Richtlinie selbst erfolgen, da diese bereits für sich genommen vom Wortlaut her zu weit geraten ist14,
+
+b) "Betrug"
+
+Die Richtlinie verlangt nicht zwingend, die weitergehenden Regelungen in das deutsche Betrugsstrafrecht i.e. Sinne (§§ 263 ff. StGB) zu integrieren. Zwar heißt es in der deutschen Übersetzung des Erwägungsgrunds 4:
+
+"(4) Zum Schutz der finanziellen Interessen der Union bedarf es einer gemeinsamen Definition des Betrugs im Sinne des Geltungsbereichs dieser Richtlinie, die sämtliche betrügerischen Handlungen zu Lasten der Einnahmen- oder (...)", der englische Text lautet aber "The protection of the Union's financial interests calls for a common definition of fraud falling within the scope of this Directive, which should cover fraudulent conduct with respect to revenues, expenditure and assets at the expense of the general budget of the European Union (the 'Union budget'), including financial operations such as borrowing and lending activities. The notion of serious offences against the common system of value added tax ('VAT') as established by Council Directive 2006/112/EC (8) (the 'common VAT system') refers to the most serious forms of VAT fraud, in particular carrousel fraud, VAT fraud through missing traders, and VAT fraud committed within a criminal organisation, which create serious threats to the common VAT system and thus to the Union budget. Offences against the common VAT system should be considered to be serious where they are connected with the territory of two or more Member States, result from a fraudulent scheme (...)".
+
+Schon die Verwendung der Begriffe "fraud", "fraudulent conduct", "carrousel fraud", "fraudulent scheme" sowie die weiteren Beispiele zeigen jedoch, dass hier der weitere Begriff des anglo-amerikanischen "fraud" zugrunde gelegt wird, der bspw. auch untreue- und unterschlagungsähnliche Handlungen erfasst.15
+
+Dementsprechend ist eine Einordnung in den engeren Betrugskontext des deutschen Strafrechts nicht als zwingend anzusehen. Dies ist insbesondere für Art. 1 §§ 1, 2 EUFinSchStG-E zu berücksichtigen
+
+3. Systematik des Vermögensschutzes
+
+Soweit keine Sachen als Bestandteile des Vermögens betroffen sind, bleiben Schädigungen des Vermögens beliebiger Dritter ohne die Intention, sich selbst oder Dritten Vorteile zu verschaffen, i.d.R. straflos.
+
+Eine systematische Ausnahme besteht für die Fälle, in welchen der Schädiger in einer besonderen Verpflichtungsbeziehung zu dem Vermögen steht, dessen Schädigung er selbst verursacht.
+
+Klassisches Beispiel ist der Untreuetatbestand (§ 266 StGB), dessen Verwirklichung ohne Bereicherungsabsicht möglich ist, aber verlangt, dass derjenige, der ein fremdes Vermögen schädigt, in einer besonderen Schutzbeziehung zu dem Tatobjekt steht. Das zugehörige Tatbestandsmerkmal ist die Vermögensbetreuungspflicht.
+
+Im Grundsatz lässt sich eine entsprechende Schutzbeziehung auch für den Tatbestand des Subventionsbetrugs konstruieren. Denn, wer eine Subvention beantragt, begibt sich in eine spezifische Nähebeziehung zur bewilligenden Stelle. Der Entscheidung der "für die Bewilligung der Subvention zuständigen Behörde" liegen regelmäßig zentral die Angaben des Antragstellers und die von ihm beigebrachten Unterlagen zugrunde.16 Trotz dieser strukturellen Nähe wird die Pflicht des Subventionsempfängers jedoch als weniger weitreichend angesehen, die Annahme einer Vermögensbetreuungspflicht i.S. des § 266 StGB kommt nur in Ausnahmefällen in Betracht.17
+
+Zudem sind die zentralen vermögensschützenden Tatbestände des StGB Im Bereich des Nebenstrafrechts nur vorsätzlich begehbar. Fahrlässige Schädigungen werden dementsprechend zivilrechtlich liquidiert oder ziehen verwaltungsrechtliche Rechtsfolgen nach sich, insbesondere sofern öffentliche Vermögensträger betroffen sind.
+
+Im Bereich des (wirtschaftsstrafrechtlichen) Nebenstrafrechts wird vielfach der Weg gewählt, dass die vorsätzliche Schädigung eine Straftat darstellt, die fahrlässige hingegen eine Ordnungswidrigkeit. In anderen Rechtsordnungen wird der Weg in das Verwaltungsstrafrecht gewählt.18
+
+4. Strafwürdigkeit, Strafbedürftigkeit und systematische Stellung der Art. 1 §§ 1 - 3 EUFinSchStG-E
+
+Die Begründung des RefE bezieht sich zentral auf mögliche Lücken des Schutzes der finanziellen Interessen der Union: "Für Ausgaben und Vermögenswerte, die keine Subvention darstellen und bei denen da- her § 264 StGB keine Anwendung findet, besteht somit ein Umsetzungsbedarf, der durch Artikel 1 § 1 des Entwurfs abgedeckt werden soll. Dieser neue Tatbestand dient ausschließlich dem Schutz der finanziellen Interessen der Europäischen Union. Er verlangt einen Nachteil zu Lasten des Vermögens der Europäischen Union sowie die Absicht ("stoffgleicher") Bereicherung und steht damit im Einklang mit den Vorgaben des Artikels 3 Absatz 2 Buchstabe b Ziffer iii der Richtlinie, der neben einer Schädigung der finanziellen Interessen der Union (optional) auch voraussetzt, dass der Täter in der Absicht handelt, sich oder einem Dritten gerade durch Schädigung der finanziellen Interessen der Europäischen Union einen rechtswidrigen Vorteil zu verschaffen.
+
+Der Tatbestand vervollständigt damit im Hinblick auf Ausgaben im Zusammenhang mit der Auftragsvergabe den bereits bestehenden Schutz der finanziellen Interessen der Europäischen Union vor missbräuchlicher Verwendung."19 Dabei allerdings wird dem Aspekt, ob ein Schutz außerhalb des Kriminalstrafrechts vorhanden und möglicherweise gleichermaßen effektiv oder zumindest ausreichend ist, keine Beachtung geschenkt. Auch die Entwurfsbegründung belässt es bei der (näher begründeten, s.u.) Feststellung, dass der strafrechtliche Schutz nicht umfassend sei.
+
+a) Art. 1 § 1 EUFinSchStG-E
+
+§ 1 EUFinSchStG-E (Missbräuchliche Verwendung von Leistungen der Europäischen Union) stellt insoweit eine vollständige Umsetzung der Richtlinie dar. Allerdings zeigen sich deutliche Unterschiede zu den Normen des Vermögensstrafrechts (§§ 263, 264, 266StGB) insbesondere im Hinblick auf die subjektive Tatseite. So ist nach dem Wortlaut des § 1 davon auszugehen, dass der Vorsatz zur missbräuchlichen Verwendung wie auch die Vorteilsabsicht erst nach Erlangen der Leistung gefasst werden. Damit läge der Tatbestand strukturell in der Nähe des § 246.
+
+aa) Strukturelle Parallelen zu §§ 263 ff., 264StGB.20
+
+§ 1 gleicht zunächst im Hinblick auf Vorteilsabsicht und Nachteilszufügung der Struktur des Betrugs. Die Tatbestandsfassung könnte im Hinblick auf die Tathandlung etwas klarer gestaltet werden (bspw. ".... dass er Leistungen, die ihm aus Mitteln der Europäischen gewährt sind und deren Verwendung .... beschränkt ist, entgegen .... verwendet, wird ..."). s.u. (d). Dadurch dass die Handlung "entgegen dieser Verwendungsbeschränkung verwendet" nur vorsätzlich vorgenommen werden kann, dürfte dem Bestimmtheitserfordernis Rechnung getragen sein, da insoweit eine Kenntnis des Täters von der Beschränkung vorauszusetzen ist. Unschärfen verbleiben u.E. bzgl. des Leistungsbegriffs, da dieser ja gerade nicht mit dem Subventionsbegriff identisch sein soll, sondern nur Leistungen erfassen soll, die nicht (EU-) Subventionen sind.21 Hier könnte ggf. eine Legaldefinition des Leistungsbegriffs für mehr Rechtsklarheit sorgen und wäre gerade im Verhältnis zu § 264 Abs. 8 Nr. 2 StGB hilfreich. Die Formulierung des RefE "Mit dem Begriff "Leistung" erfasst § 1 jede ziel- und zweckgerichtete Mehrung fremden Vermögens und setzt zugleich voraus, dass Mittel oder Vermögenswerte von einem Leistungsgeber abgeflossen und einen Leistungsnehmer zugeflossen sind. Als Gegenstände dieses Wertflusses kommen in der Regel finanzielle Mittel (Geldleistungen) in Betracht, aber auch Sachwerte, Forderungen und Rechte sowie Dienstleistungen"22, wäre insoweit als Minimum an Konkretiserung akzepatbel. Ggf. könnte auch die weitere Ausdifferenzierung in der Entwurfsbegründung der Sache nach herangezogen werden: "Die Leistung muss aus öffentlichen Mitteln der Europäischen Union erbracht werden und damit entsprechend Artikel 3 Absatz 2 Buchstabe b Ziffer iii der Richtlinie als Ausgabe aus dem Gesamthaushalt der Europäischen Union erfolgen oder aus einem Haushalt, der von der Union oder in deren Auftrag verwaltet wird. Wie beim Subventionsbetrug nach § 264 StGB ist es nicht erforderlich, dass die Leistung direkt von der Europäischen Union erbracht wird. Eine mittelbare Leistungserbringung durch zwischengeschaltete Behörden oder sonstige Institutionen ist möglich, wenn diese mit der Verwaltung von Mitteln oder Vermögenswerten betraut sind."23
+
+bb) Strukturelle Parallelen zu § 266 StGB
+
+Nicht kohärent zu dieser betrugsähnlichen Systematik verhält sich allerdings der Verzicht auf ein Täuschungselement im Rahmen des § 1 EUFinSchStG-E. Der RefE weist zurecht darauf hin, dass - wie auch bereits die Titulierung des § 1 nahelegt - ein untreueähnliches Verhalten unter Strafe gestellt werden soll, welches mangels einer Vermögensbetreuungspflicht der Empfänger vergaberechtlicher Leistungen nach ständiger Rechtsprechung nicht unter § 266 StGB subsummiert werden kann.24 Daraus allein lässt sich aber nicht die Einordnung in den Betrugskontext begründen. Vielmehr liegt eine Parallele zu dem in der Handlungsbeschreibung vergleichbaren § 264 Abs. 1 Nr. 2 StGB vor. Beide Tatbestände stellen einen Missbrauch der tatsächlichen Verwendungsmöglichkeiten eines Förderungsempfängers über die im Innenverhältnis zum Förderungsgeber bestehenden Beschränkungen hinaus unter Strafe. Strukturell liegen dementsprechend parallele untreueähnliche Verhaltensweisen von Förderungsempfängern zugrunde. Dementsprechend läge es nahe, einen darauf bezogenen Tatbestand im Untreuekontext im StGB zu formulieren, der den bestimmungswidrigen Missbrauch von Subventionen und Leistungen der EU durch den Empfänger pönalisiert. Damit würde die Verpflichtung des berechtigten Empfängers auf die Verwendungsbeschränkung zu einem die Vermögensbetreuungspflicht substituierenden Merkmal. Eine Strafwürdigkeit vorsätzlichen Verhaltens ließe sich für einen derart konkretisierten Tatbestand begründen.25
+
+cc) Abweichungen von der Systematik des Vermögensschutzes im StGB
+
+Nach den Vorgaben der Richtlinie in Art. 3 Abs. 2 ist die vorsätzliche missbräuchliche Verwendung von Leistungen, welche seitens der EU gewährt wurden, unter Strafe gestellt. Demensprechend entsteht der Vorsatz regelmäßig nach Erlangung der Leistung.
+
+Ein solches Verhalten unterfällt nicht dem Tatbestand des § 263 StGB, der voraussetzt, dass die Täuschung ursächlich für die Erlangung der Leistung wird. Zwar könnte bei solcherart ausgestaltetem Vorsatz eine Untreue nach § 266 StGB in Betracht kommen, jedoch fehlt es wie oben dargelegt bei den Leistungsempfängern regelmäßig an einer Vermögensbetreuungspflicht. Dafür liegt eine Nähe zum Unterschlagungstatbestand vor. § 246 StGB pönalisiert die vorsätzliche Aneignung bereits im Gewahrsam des Täters befindlicher Sachen sofern sich dabei ein (an die missbräuchliche Verwendung der bereits zugeflossenen Leistung erinnernder) Zueignungswille manifestiert. Jedoch betrifft § 1 EUFinSchStG-E zum einen nicht nur Sachen. Zum anderen muss der Täter der Unterschlagung einen Aneignungswillen äußerlich erkennen lassen. Es ließe sich zwar argumentieren, dass auch die Verwendung entgegen der Verwendungsbeschränkung eine solche äußerlich erkennbare Veränderung der Herrschaftsbeziehung zu einem Vermögensgegenstand darstellt, die von einem zuvor gefassten Vorsatz getragen sein muss. Jedoch wird es zu einer vergleichbaren Manifestation der Vorteilsabsicht häufig erst sehr viel später kommen bzw. wird diese ggf. nur sehr beschränkt wahrzunehmen sein. Aufgrund der das gesamte Vermögen erfassenden Reichweite des § 1 EUFinSchStG-E kann zudem ggf. eine Konkurrenzsituation im Überschneidungsbereich des Sacheigentums entstehen.26 Im Übrigen reicht § 1 EUFinSchStG-E jedoch deutlich weiter als § 246 StGB, da er über das Sacheigentum hinaus das gesamte Vermögen erfasst und im Hinblick auf das Schutzgut "Finanzielle Interessen der Union" auch über den Schutzbereich der Vermögensdelikte hinausgreifen soll.
+
+Diese unterschlagungsähnliche Struktur des § 1 EUFinSchStG-E erschwert die Verteidigung im Hinblick auf den Zeitpunkt der Entstehung des Vorsatzes und der Vorteilsabsicht. Läge wie in der deutschen Fassung der Richtlinie nahegelegt eine echte Betrugsstruktur vor, so müsste die subjektive Seite bereits vor der Erlangung der Leistung ausgeprägt und beweisbar sein. Die insoweit unklare Tatbestandsfassung lässt wie dargelegt auch einen deutlich späteren Zeitpunkt zu. Diese Erweiterung resultiert letztlich aus dem in der Richtlinie formulierten Erfolg, der nicht mit einem Schaden gleichzusetzen ist (näher unten d).
+
+b) Art. 1 § 2 EUFinSchStG-E
+
+§ 2 EUFinSchStG-E (Rechtswidrige Verminderung von Einnahmen der Europäischen Union) entspricht in Zielrichtung und Struktur § 370 AO. Die Norm bezieht sich auf Einnahmen, die nicht traditionelle Eigenmittel oder Mehrwertsteuereigenmittel betreffen. Dazu zählen die sonstigen Einnahmen, mit denen sich der EU-Haushalt neben den Eigenmitteln finanziert.27 Nr. 1 stellt die aktive Falschangabe unter Strafe, Nr. 2 das Unterlassen von richtigen Angaben bei Bestehen einer Erklärungspflicht. Der über § 370 AO hinausgehende Anwendungsbereich ist relativ schmal, wie sich aus der Begründung des RefE ergibt28: "Die Tathandlungen in Artikel 3 Absatz 2 Buchstabe c Ziffer i bis iii der Richtlinie entsprechen nahezu wortgleich den Tatbeständen im Übereinkommen. In Bezug auf die traditionellen Eigenmittel ist Artikel 3 Absatz 2 Buchstabe c der Richtlinie daher auch bereits um- gesetzt (vgl. hierzu die Ausführungen unter II. 2. b). Es besteht somit nur noch ein Regelungsbedarf in Bezug auf die übrigen Einnahmen zur Finanzierung des EU-Haushalts und die nicht durch andere Strafvorschriften geschützten Einnahmen der Haushalte, die von der Union oder in deren Auftrag verwaltet werden. Dabei können die anhand des Bruttonationaleinkommens festzusetzenden BNE-Eigenmittel grundsätzlich nicht Gegenstand von durch individuellen Rechtssubjekten zu begehendem Einnahmebetrug sein".29 Gegenüber § 370 AO verbleibt ein eigenständiger Anwendungsbereich insbesondere für die in den Titeln 4 bis 9 des Haushaltsplans der Europäischen Union enthalten Einnahmen wie Steuern auf Gehälter und Renten sowie Beiträge des Personals der Institutionen der Europäischen Union und der anderen EU-Einrichtungen zum Rentensystem.30 Da § 370 AO nach h.M. nur den inländischen Steueranspruch schützt, greift er bei originären EU-Ansprüchen nicht. Denkbar wäre insoweit aber eine § 264 Abs. 7 Nr. 2 entsprechende Ausweitung des § 370 AO. Eine Notwendigkeit zur Regelung innerhalb eines neuen bzw. eigenständigen Stammgesetzes zum Schutze spezifischer EU-Vermögenswerte besteht auch hier nicht, da das Strafanwendungsrecht entsprechend § 6 Nr. 8 StGB auch den Spielraum für eine Anwendung der nationalen Strafvorschriften zum Schutze der finanziellen Interessen der EU (dazu s. I und unten d) bietet.. Denn der Schutz der finanziellen Interessen der EU ist eine gemeinsame Aufgabe der Mitgliedstaaten (Art. 325 AEUV) und muss nach h.M. dezentral durchgesetzt werden, solange entsprechende supranationale Durchsetzungsmöglichkeiten auf EU-Ebene noch nicht existieren.31
+
+Weiterhin hebt der Entwurf auf sonstige Einnahmen aus der Verwaltung der EU ab.32 Hier allerdings dürfte zwar nicht § 370 AO einschlägig sein, wohl aber die vermögensschützenden Tatbestände des StGB. Insbesondere § 263 StGB erfasst, soweit ersichtlich, eine täuschungsbedingte Verminderung derartiger Einnahmen. Dies gilt auch für die Nr. 2, insoweit §§ 263, 13 StGB bei Bestehen einer spezifischen Erklärungspflicht i.d.R. greifen dürften.
+
+Problematisch dürfte nach bisherigem Verständnis der Reichweite des Vermögensschutzes die Ausdehnung auf "Geldbußen gegen Unternehmen wegen Verstoßes gegen die EU-Wettbewerbsregeln"33 sein. Denn diese Ansprüche sind nicht Bestandteil des strafrechtlich geschützten (staatlichen) Vermögens.34 Würde man dies anders sehen, würde einerseits das Selbstbegünstigungsprivileg aus § 258 Abs. 5 StGB unterlaufen und andererseits das grundlegende Recht der Selbstbelastungsfreiheit (Nemo Tenetur), da diesem auch das Recht des Beschuldigten zu lügen, innewohnt. Wäre hier strafrechtlicher Vermögensschutz einschlägig, würde im Ergebnis bei jedem auf Täuschung basierendem Versuch, den Schuldnachweis zu verhindern, eine Strafe drohen, soweit das Verhalten Vermögensrelevanz aufweist.
+
+Warum für den Schutz von EU-Geldbußen etwas anderes gelten sollte, ist nicht ersichtlich. § 2 EUFinSchStG-E stellt mit der Erstreckung eine Durchbrechung der Struktur des Vermögensschutzes dar, für welche kein Sachgrund ersichtlich ist.
+
+Ein eigenständiger Tatbestand mit dem Regelungsgehalt des § 2 EUFinSchStG-E ist auch im Rahmen des StGB bzw. der AO abzulehnen, da er in den dargestellten Punkten zu weit greift. Soweit ein Regelungsbedürfnis darüber hinaus erkennbar ist, stellt sich die Frage der Strafbedürftigkeit, d.h., ob hier nicht verwaltungsrechtliche bzw. zivilrechtliche Regelungen ausreichend wären (dazu s.I.). In jedem Falle würde aber eine Erweiterung des § 370 AO in Verbindung mit § 6 Nr. 8 StGB ausreichend sein.35
+
+c) Art. 1 § 3 EUFinSchStG-E
+
+Artikel 1 § 3 EUFinSchStG-E (Bestechlichkeit und Bestechung mit Bezug zu den finanziellen Interessen der Europäischen Union) stellt sich als systemwidrig und überflüssig dar. Grund der Regelung soll ausweislich der Begründung des RefE sein, dass die Korruptionsstraftatbestände der §§ 332, 334 und 335a StGB jeweils voraussetzen, dass die erkaufte Diensthandlung Dienstpflichten bzw. die erkaufte richterliche Handlung richterliche Pflichten verletzen würde. Demgegenüber verlange die Richtlinie, dass die Diensthandlung bzw. richterliche Handlung die finanziellen Interessen der Europäischen Union schädigt oder wahrscheinlich schädigt, ohne ausdrücklich auf die Pflichtwidrigkeit die Diensthandlung bzw. richterlichen Handlung abzustellen.
+
+Schon einer Differenzierung zwischen richterlichen Handlungen und sonstigen Diensthandlungen von Richtern bedarf es vor dem Hintergrund des Schutzguts der finanziellen Interessen der Union kaum, da diese, wenn, dann nur durch richterliche Handlungen, geschädigt werden können. Ob diese Differenzierung mit dem Wortlaut des deutschen Bestechungsstrafrechts überhaupt in Einklang zu bringen wäre, erscheint zudem zweifelhaft. Unabhängig davon wird im Entwurf die Strafbedürftigkeit und damit die Notwendigkeit eines neuen Tatbestands aber ohnehin tragend mit der Pflichtwidrigkeit der Diensthandlung als zusätzlicher Tatbestandsvoraussetzung der §§ 332, 334, 335a StGB begründet.
+
+Die Beschränkung auf pflichtwidrige Diensthandlungen ermöglicht es, den höheren Strafrahmen auf pflichtwidrige richterliche Handlungen anzuwenden, ebenso wie die Festschreibung der Versuchsstrafbarkeit in Abs. 2 Satz 2. Diese Ausgestaltung wählte der Gesetzgeber, um den erhöhten Unrechtsgehalt der Richterbestechung zu unterstreichen. Weitergehendes Ziel dieser bewussten gesetzgeberischen Differenzierung war es, in Bezug auf künftige pflichtwidrige richterliche Handlungen auch die Richter eines anderen EU-Mitgliedstaats gem. Art. 2 § 1 Abs. 1 lit. a EUBestG zur erfassen und den nationalen Richtern gleichzustellen; ebenso die Mitglieder eines Gerichts der EG gem. Art. 2 § 1 Abs. 1 lit. b EUBestG und die Richter des IStGH gem. § 2 Nr. 1 des IStGH-GleichstellungsG.36 Ein Grund, diese Systematik zu durchbrechen und exklusiv für den Schutz der finanziellen Interessen der Union eine Sonderregelung zu schaffen, ist nicht ersichtlich.
+
+d. Erfolg i.S. der Richtlinie und Schadensbegriff i.S. §§ 263 ff.
+
+Die Richtlinie stellt in Art. 3 Abs. 2 lit. a) i., iii darauf ab, dass Folge des inkriminierten Verhaltens sein muss, dass " Mittel oder Vermögenswerte aus dem Gesamthaushalt der Union oder aus den Haushalten, die von der Union oder in deren Auftrag verwaltet werden, unrechtmäßig erlangt oder zurückbehalten werden" (i) oder "missbräuchlicher Verwendung" zugeführt werden (iii). Damit verzichtet die Richtlinie in weiten Bereichen auf den Eintritt eines Schadens im Sinne der Dogmatik der §§ 263 ff. StGB. Vielmehr kommt es auf missbräuchliche bzw. nachteilige Verfügung über europäische Leistungen an. Insoweit entspricht der von der Richtlinie geforderte Erfolg eher einem Vermögensabfluss im Sinne des ungeschriebenen Tatbestandsmerkmals der Vermögensverfügung in § 263 StGB als dem des Schadens. Es geht dementsprechend im Rahmen der Richtlinie mehr um die ggf. subjektiv nachteilige Art und Weise der Disposition als um die Herbeiführung eines nachteiligen Ergebnisses derselben. 37
+
+Auf eine Schadenssaldierung kommt es daher nicht an. Zwar geht die Begründung des RefE davon aus, dass im Prinzip die Schadensdogmatik des Betrugsstrafrechts übertragbar sei.38 Gleichwohl liegt ein Erfolg auf Basis der Richtlinie eben auch dann vor, wenn ein Einnahmenzufluss geringer ausfällt als dies bei hypothetisch richtigem Verhalten des Pflichtigen der Fall gewesen wäre.39 Damit geht der Erfolg deutlich weiter als dies bei Zugrundelegung der betrugsrechtlichen Schadensdogmatik der Fall wäre, dies gilt beispielsweise im Hinblick auf Exspektanzen oder Gewinnerwartungen, die wenn überhaupt, nur dann vom Schadensbegriff erfasst werden, wenn sie in tatsächlicher und nicht lediglich rechtlicher Weise konkretisiert sind.40
+
+Das Erfolgsverständnis entspricht daher eher dem wesentlich weiteren Betrugsbegriff bspw. des US-amerikanischen Rechts (Federal Law bspw.Fraud, Defraud, Wire-Fraud, Bank-Fraud, 18.U.S.C. §1341 ff.(2016))41, die teilweise auch ganz auf einen Schaden verzichten. Fraud erfasst auch viele untreue- und unterschlagungsähnliche Verhaltensweisen sowie betrügerische Verfügungen als solche. Auch andere EU-Staaten, wie bspw. Polen42, liegen im Hinblick auf den Erfolg näher bei der Richtlinie als bei der deutschen Schadensdogmatik.
+
+Dennoch sollte eine Übernahme dieses weiten Erfolgsverständnisses für Vermögensdelikte sehr sorgsam überdacht werden. Die entsprechenden Strukturen im materiellen Recht ausländischer Rechtsordnungen werden zudem in der Regel durch prozessuale Regelungen flankiert. So führen sie zunächst im Vergleich zum deutschen Recht zu einer massiven Beweiserleichterung für die Strafverfolgungsbehörden. Dem stehen aber beispielsweise deutlich stärker ausgeprägte Mitwirkungsrechte der Verteidigung bei der Beweisgewinnung gegenüber. Zudem besitzt das Prinzip des individuellen Schuldnachweises nicht notwendig denselben Stellenwert wie im hiesigen Strafrecht. Würde man wie im RegE vorgeschlagen die auf den Erfolg bezogenen Grundsätze der Richtlinie schlicht in das nationale Recht importieren, so besteht die Gefahr, dass die ohnehin schon unübersichtliche Schadensdogmatik noch deutlich disparater wird. Zwar ist dem Entwurf zuzugeben, dass das Erfordernis der Rechtswidrigkeit der Verwendung eine Annäherung an den juristisch-ökonomischen Vermögensbegriff herbeiführen kann, jedoch folgt daraus nicht, dass zugleich die Saldierung bei der Schadensbestimmung in der bisher im StGB gebräuchlichen Weise erfolgen könnte. Der Grund hierfür liegt in der funktionalen Trennung der Merkmale "Verfügung", "Vermögen" und "Schaden".43
+
+IV. Zusammenfassung
+
+Es besteht nur geringer Umsetzungsbedarf. Die oben genannten ergänzenden Regelungen sollten in das bestehende Vermögensstrafrecht des StGB inkorporiert werden. Die Auslagerung in ein spezifisches Stammgesetz zum Schutz der finanziellen Interessen der Union ist demgegenüber nicht zielführend. Allein die einfachere Kompetenzzuweisung an die Europäische Staatsanwaltschaft stellt keinen ausreichenden Sachgrund dar. Die Nachteile, die insbesondere durch die Verwendung unterschiedlicher Begrifflichkeiten entstehen, überwiegen deutlich.
+
+Prof. Dr. Carsten Momsen
+
+Wiss. Mitarb. mgr. iur. Aneta Leszczynska
+
+1 Art. 82 Abs. 2 lit. b) betrifft primär Strafprozessrecht
+
+2 Grundsätzlich geht es um dabei nicht um Minimalanforderungen in dem Sinne, dass zwingend bestimmte strafrechtliche Sanktionen erforderlich wären, sondern um die Obergrenzen von Sanktionen; vgl. Verordnung (EU) Nr. 596/2014 des Europäischen Parlaments und des Rates vom 16. April 2014 über Marktmissbrauch (Marktmissbrauchsverordnung) und zu dieser in Zusammenhang stehender Richtlinie 2014/57/EU des Europäischen Parlaments und des Rates vom 16. April 2014 über strafrechtliche Sanktionen bei Marktmanipulation (Marktmissbrauchsrichtlinie) ist.
+
+3 Vgl. die Verordnung (EG, Euratom) Nr. 2988/95 des Rates vom 18. Dezember 1995 über den Schutz der finanziellen Interessen der Europäischen Gemeinschaften - Art. 1.
+
+4 Siehe z.B. Erwägungsgründe Nr. 1, 4.
+
+5 Siehe Art. 120 Abs. 2 der PIF-Richtlinie.
+
+6 RefE S. 1.
+
+7 RefE S. 3.
+
+8 RefE S. 27.
+
+9 S.o. II.
+
+10 Artikel 2 - Begriffsbestimmungen und Anwendungsbereich
+"Für die Zwecke dieser Richtlinie gelten folgende Begriffsbestimmungen:
+"finanzielle Interessen der Union" sind sämtliche Einnahmen, Ausgaben und Vermögenswerte, die durch Folgendes erfasst, erworben oder geschuldet werden:
+i) den Haushaltsplan der Union,
+ii) den Haushaltsplänen der nach den Verträgen geschaffenen Organe, Einrichtungen und sonstigen Stellen der Union oder in den von diesen direkt oder indirekt verwalteten und überwachten Haushaltsplänen;
+"juristische Person" ist ein Rechtssubjekt, das nach dem geltenden Recht Rechtspersönlichkeit besitzt, mit Ausnahme von Staaten oder sonstigen Körperschaften des öffentlichen Rechts in der Ausübung ihrer hoheitlichen Rechte und von öffentlich-rechtlichen internationalen Organisationen. (...)"
+
+11 MüKo-StGB/Hefendehl § 263 Rn. 375;
+
+12 RGSt 44, 230 ff.; BGHSt 1, 265 ff.; BGHSt 34, 199; näher MüKo-StGB/Hefendehl § 263 Rn. 341.
+
+13 Lackner/Kühl-StGB § 263 Rn. 33; umfassend zum geschützten Vermögen Maurach/Schroeder/Maiwald/ Hoyer/Momsen, Strafrecht BT 1, 11. Auflage (im Erscheinen) § 41 Rn. 88 - 106.
+
+14 RefE S. 11: "(...) können die anhand des Bruttonationaleinkommens festzusetzenden BNE-Eigenmittel grundsätzlich nicht Gegenstand von durch individuellen Rechtssubjekten zu begehendem Einnahmebetrug sein (...)".
+
+15 In der französischen Fassung wird "fraude" verwendet, was ebenfalls weitere (insbesondere Steuer-) Hinterziehungshandlungen erfasst.
+
+16 MüKo-StGB/Wohlers/Mühlbauer, § 264 Rn. 10.
+
+17 Vgl. RefE S. 10.
+
+18 Näher unten 4. c).
+
+19 RefE S. 10.
+
+20 S.o. 2. sowie u. d.
+
+21 RefE S. 30.
+
+22 RefE S. 27.
+
+23 RfE S. 27 f.
+
+24 BGH, Urteil vom 13. Mai 2004 - 5 StR 73/03 -, BGHSt 49, 147 [156]; Tiedemann JZ 2005, 45, 46
+
+25 Zur begrifflichen Diversität von "Schaden" und "finanziellen Interessen", s. sogleich unter d).
+
+26 Allerdings ist die Konkurrenz angesichts der im RefE beschriebenen Leistungen pp. ein eher theoretischer Ausnahmefall.
+
+27 RefE S. 30, 31 ff.
+
+28 RefE S. 10 ff., 14-17.
+
+29 RefE S. 10 f.; Killlmann/Schröder, in: Sieber/Satzger/von Heintschel-Heinegg, Europäisches Strafrecht, § 12 Rn. 22.
+
+30 RefE S. 30.
+
+31 MüKo-StGB/Ambos § 6 Rn. 13.
+
+32 RefE S. 30.
+
+33 RefE S. 10, 31.
+
+34 MüKo-StGB/Hefendehl § 263 Rn. 461; BGHSt 38, 345 (351).
+
+35 Zum Schadens- bzw. Nachteilsbegriff der §§ 1 und 2 EUFinSchStG-E s.u. (d).
+
+36 Ausf. MüKo-StGB/Korte § 332 Rn. 25 f.
+
+37 Allerdings gilt dies in gewisser Weise auch für die erfolgreiche Täuschung im Rahmen des § 263, die einzige Ausnahme ist, dass dort eine bewusste Vermögensminderung (bzw. Vermögensverfügung) notwendig ist, d.h. ein bewusster Akt auf der Seite des später Geschädigten, was im Falle der Subventionsvergabe nicht zwangsläufig vorliegen muss. In jedem Fall allerdings muss, auch wenn dies dem bewusst Verfügenden infolge der Täuschung auch subjektiv verborgen bleibt, eine Vermögensminderung im Sinne der sog. "Saldotheorie" objektiv eingetreten sein, damit das Delikt vollendet ist Zum Begriff des Schadens ausf. Maurach/Schroeder/Maiwald/Hoyer/Momsen, Strafrecht BT 1, 11. Auflage (im Erscheinen) § 41 Rn. 106 ff.
+
+38 RefE S. 32.
+
+39 RefE S. 32.
+
+40 Maurach/Schroeder/Maiwald/Hoyer/Momsen, Strafrecht BT 1, 11. Auflage (im Erscheinen) § 41 Rn. 100 ff, 113 ff., zum Gefährdungsschaden Rn. 123 ff.
+
+41 Maurach/Schroeder/Maiwald/Hoyer/Momsen, Strafrecht BT 1, 11. Auflage (im Erscheinen) § 41 Rn. 9a m.w.N.
+
+42 Polnisches StGB (Kodeks Karny) Art. 286. § 1. "Wer in der Absicht, einen Vermögensvorteil zu erzielen, einen anderen dadurch zu einer nachteiligen Verfügung über eigenes oder fremdes Vermögen veranlasst, dass er bei dieser Person einen Irrtum hervorruft oder einen bei ihr bestehenden Irrtum oder ihre Unfähigkeit, die vorzunehmende Handlung richtig aufzufassen, ausnutzt, wird mit Freiheitsstrafe von sechs Monaten bis zu acht Jahren bestraft."
+
+43 Ausf. Maurach/Schroeder/Maiwald/Hoyer/Momsen, Strafrecht BT 1, 11. Auflage (im Erscheinen) § 40 Rn. 3, § 41 Rn. 75 ff.
