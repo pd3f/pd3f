@@ -1,16 +1,20 @@
 FROM python:3.13-slim
 
-RUN pip install --no-cache-dir "poetry>=2.5,<3"
+# Tesseract with the languages pd3f knows (tesseract-ocr brings eng and osd) and unpaper for
+# OCRmyPDF; without Ghostscript, its optimizer warns about each JPEG it leaves as it is
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+        tesseract-ocr tesseract-ocr-deu tesseract-ocr-fra tesseract-ocr-ita tesseract-ocr-spa \
+        ghostscript unpaper \
+    && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
-COPY poetry.lock pyproject.toml /app/
-RUN poetry config virtualenvs.create false \
-    && poetry install --only main --no-root --no-interaction \
-    && rm -rf /root/.cache/pypoetry
+COPY pyproject.toml README.md LICENSE ./
+COPY pd3f pd3f
+RUN pip install --no-cache-dir ".[web]"
 
-COPY pd3f /app/
-RUN mkdir /uploads
-
-ENV FLASK_APP=/app/app.py
-# inside the `cache` volume, so models survive container restarts
-ENV FLAIR_CACHE_ROOT=/root/.cache/flair
+# jobs and the scorers' models live in volumes, so they survive restarts
+ENV PD3F_JOBS=/data/jobs FLAIR_CACHE_ROOT=/data/flair
+VOLUME /data
+EXPOSE 8000
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "--workers", "1", "--threads", "8", "pd3f.web:create_app()"]

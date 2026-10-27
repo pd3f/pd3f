@@ -1,7 +1,8 @@
 # the image only needs these, keep uploads and caches out of the build context
 *
 !pyproject.toml
-!poetry.lock
+!README.md
+!LICENSE
 !pd3f
 **/__pycache__
 **/.DS_Store

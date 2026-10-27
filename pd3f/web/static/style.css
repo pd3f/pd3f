@@ -1,0 +1,116 @@
+:root {
+  --bg: #ffffff;
+  --fg: #1a1a1a;
+  --muted: #555555;
+  --border: #8a8a8a;
+  --accent: #0b57d0;
+  --accent-fg: #ffffff;
+  --mark-bg: #ffe08a;
+  --mark-fg: #1a1a1a;
+  --error: #b3261e;
+  --surface: #f4f4f4;
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #161616;
+    --fg: #ececec;
+    --muted: #b4b4b4;
+    --border: #8f8f8f;
+    --accent: #8ab4f8;
+    --accent-fg: #0b1a33;
+    --mark-bg: #6b5300;
+    --mark-fg: #ffffff;
+    --error: #f2b8b5;
+    --surface: #222222;
+  }
+}
+
+body {
+  margin: 0 auto;
+  max-width: 90rem;
+  padding: 1rem;
+  background: var(--bg);
+  color: var(--fg);
+  font: 1rem/1.5 system-ui, sans-serif;
+}
+
+a { color: var(--accent); }
+
+.version, .hint { color: var(--muted); font-size: 0.9rem; }
+.hint { display: block; }
+
+fieldset { border: 1px solid var(--border); border-radius: 0.25rem; }
+
+label { margin-right: 0.5rem; }
+
+input, select, button {
+  font: inherit;
+  color: var(--fg);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 0.25rem;
+  padding: 0.25rem 0.5rem;
+}
+
+button {
+  background: var(--accent);
+  color: var(--accent-fg);
+  border-color: var(--accent);
+  cursor: pointer;
+}
+
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+header, form, #status, #summary, section[aria-labelledby="jobs-title"] { max-width: 50rem; }
+
+form { border: 2px dashed transparent; border-radius: 0.25rem; }
+form.dropping { border-color: var(--accent); }
+
+summary { cursor: pointer; margin: 1rem 0; }
+
+#status.error { color: var(--error); }
+
+.actions button { margin-right: 0.5rem; }
+
+@media (min-width: 64rem) {
+  .columns { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 1rem; }
+}
+
+#pdf-view {
+  width: 100%;
+  height: 85vh;
+  border: 1px solid var(--border);
+  border-radius: 0.25rem;
+  background: var(--surface);
+}
+
+.text {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  background: var(--surface);
+  padding: 1rem;
+  border-radius: 0.25rem;
+}
+
+mark { background: var(--mark-bg); color: var(--mark-fg); position: relative; }
+
+/* the options of a focused decision, for keyboard users who get no tooltip */
+mark:focus-visible::after {
+  content: attr(data-options);
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1;
+  width: max-content;
+  max-width: min(40ch, 80vw);
+  margin-top: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  white-space: pre-wrap;
+  font-size: 0.9rem;
+  background: var(--bg);
+  color: var(--fg);
+  border: 1px solid var(--border);
+  border-radius: 0.25rem;
+}

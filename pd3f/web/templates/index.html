@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>pd3f</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <script src="{{ url_for('static', filename='app.js') }}" defer></script>
+</head>
+<body>
+  <header>
+    <h1>pd3f <span class="version">{{ version }}</span></h1>
+    <p>The continuous text of a PDF: paragraphs, hyphens, headers, footers and footnotes.</p>
+  </header>
+  <main>
+    <form id="upload">
+      <h2>Upload</h2>
+      <p>
+        <label for="pdf">PDFs</label>
+        <input id="pdf" name="pdf" type="file" accept="application/pdf,.pdf" multiple required
+               aria-describedby="pdf-hint">
+        <span id="pdf-hint" class="hint">One or more; you can also drop them on this form.</span>
+      </p>
+      <fieldset>
+        <legend>Options</legend>
+        <p>
+          <label for="lang">Language</label>
+          <select id="lang" name="lang">
+            {% for l in langs %}<option>{{ l }}</option>{% endfor %}
+          </select>
+        </p>
+        <p>
+          <label for="headers_footers">Headers and footers</label>
+          <select id="headers_footers" name="headers_footers">
+            {% for h in headers_footers %}<option>{{ h }}</option>{% endfor %}
+          </select>
+        </p>
+        <p>
+          <input id="footnotes_in_place" name="footnotes_in_place" type="checkbox">
+          <label for="footnotes_in_place">Keep footnotes on their page</label>
+        </p>
+        <p>
+          <input id="page_breaks" name="page_breaks" type="checkbox">
+          <label for="page_breaks">Keep pages apart (form feed between pages)</label>
+        </p>
+      </fieldset>
+      <details>
+        <summary>Advanced</summary>
+        <p>
+          <label for="scorer">Scorer for uncertain decisions</label>
+          <select id="scorer" name="scorer" aria-describedby="scorer-hint">
+            {% for s in scorers %}<option>{{ s }}</option>{% endfor %}
+          </select>
+          <span id="scorer-hint" class="hint">flair asks a language model, which is slower</span>
+        </p>
+        <p>
+          <label for="ocr">OCR</label>
+          <select id="ocr" name="ocr" aria-describedby="ocr-hint">
+            {% for o in ocr_modes %}<option>{{ o }}</option>{% endfor %}
+          </select>
+          <span id="ocr-hint" class="hint">auto: only pages without usable text</span>
+        </p>
+        <p>
+          <label for="ocr_lang">OCR language (optional)</label>
+          <input id="ocr_lang" name="ocr_lang" type="text" autocomplete="off" spellcheck="false"
+                 aria-describedby="ocr_lang-hint">
+          <span id="ocr_lang-hint" class="hint">Tesseract codes such as rus or deu+eng</span>
+        </p>
+      </details>
+      <p><button type="submit">Extract text</button></p>
+    </form>
+
+    <p id="status" role="status" aria-live="polite"></p>
+
+    <section id="result" hidden aria-labelledby="result-title">
+      <h2 id="result-title" tabindex="-1">Result</h2>
+      <p id="summary"></p>
+      <ul id="downloads"></ul>
+      <p class="actions">
+        <button type="button" id="copy">Copy text</button>
+        <button type="button" id="delete">Delete this job</button>
+      </p>
+      <div class="columns">
+        <div>
+          <h3>Text</h3>
+          <p>
+            <input id="show-marks" type="checkbox" checked aria-describedby="marks-hint">
+            <label for="show-marks">Mark uncertain decisions</label>
+            <span id="marks-hint" class="hint">Tab moves from one to the next; focus or hover a
+              mark to see the options.</span>
+          </p>
+          <div id="text" class="text"></div>
+        </div>
+        <div>
+          <h3>PDF</h3>
+          <iframe id="pdf-view" title="The uploaded PDF"></iframe>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="jobs-title">
+      <h2 id="jobs-title">Your jobs</h2>
+      <p class="hint">Kept in this browser only. Jobs are deleted from the server after a while.</p>
+      <ul id="jobs"></ul>
+    </section>
+  </main>
+</body>
+</html>
