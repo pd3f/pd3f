@@ -172,6 +172,7 @@ The Flair test downloads the `flair-fast` models on its first run.
 The browser test checks the web app with axe-core in light and dark mode.
 
 To release, bump `version` in `pyproject.toml`, then run `poetry publish --build` and `./push_image.sh`, which builds the image for amd64 and arm64 and pushes it to Docker Hub.
+When `poetry lock` does not find a dependency published minutes ago, run it with `--no-cache`.
 
 ## License
 
